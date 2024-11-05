@@ -1,0 +1,65 @@
+<!-- register.component.html -->
+<div class="register-container">
+    <h2>Registro de Usuarios</h2>
+    <form [formGroup]="formularioRegistro" (ngSubmit)="alEnviar()">
+      
+      <!-- Campo de selección de tipo de usuario -->
+      <div>
+        <label>Tipo de usuario:</label>
+        <select formControlName="tipoUsuario" (change)="cambiarTipoUsuario()">
+          <option value="paciente">Paciente</option>
+          <option value="especialista">Especialista</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+  
+      <!-- Campos comunes para todos los usuarios -->
+      <div>
+        <label>Nombre:</label>
+        <input type="text" formControlName="nombre" required />
+  
+        <label>Apellido:</label>
+        <input type="text" formControlName="apellido" required />
+  
+        <label>Edad:</label>
+        <input type="number" formControlName="edad" required />
+  
+        <label>DNI:</label>
+        <input type="text" formControlName="dni" required />
+  
+        <label>Email:</label>
+        <input type="email" formControlName="correo" required />
+  
+        <label>Contraseña:</label>
+        <input type="password" formControlName="contraseña" required />
+      </div>
+  
+      <!-- Campos adicionales para Pacientes -->
+      <div *ngIf="esPaciente">
+        <label>Obra Social:</label>
+        <input type="text" formControlName="obraSocial" />
+  
+        <label>Imágenes de Perfil:</label>
+        <input type="file" formControlName="imagenesPerfil" multiple />
+      </div>
+  
+      <!-- Campos adicionales para Especialistas -->
+      <div *ngIf="esEspecialista">
+        <label>Especialidad:</label>
+        <select formControlName="especialidad">
+          <option *ngFor="let especialidad of especialidades" [value]="especialidad">{{ especialidad }}</option>
+          <option value="Otra">Otra</option>
+        </select>
+        
+        <!-- Campo para nueva especialidad, visible solo si se selecciona "Otra" -->
+        <input *ngIf="otraEspecialidadSeleccionada" type="text" placeholder="Ingrese nueva especialidad" formControlName="nuevaEspecialidad" />
+  
+        <label>Imagen de perfil:</label>
+        <input type="file" formControlName="imagenPerfil" />
+      </div>
+  
+      <!-- Botón de envío del formulario -->
+      <button type="submit" [disabled]="formularioRegistro.invalid">Registrar</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,61 @@
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f8ff;
+    text-align: center;
+    color: #333;
+  }
+  
+  .clinic-logo {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    color: #007acc;
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 1.2em;
+    color: #5f6368;
+    margin-bottom: 30px;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .btn-login,
+  .btn-register {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-login {
+    background-color: #007acc;
+    color: white;
+  }
+  
+  .btn-register {
+    background-color: #00aaff;
+    color: white;
+  }
+  
+  .btn-login:hover {
+    background-color: #005b9e;
+  }
+  
+  .btn-register:hover {
+    background-color: #008ecc;
+  }
+  
