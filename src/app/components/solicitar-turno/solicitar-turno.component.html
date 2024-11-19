@@ -1,0 +1,132 @@
+<body>
+  <h2 class="text-center">Solicitar Turno</h2>
+  <hr />
+  
+  <div class="row container-listas" *ngIf="authSvc.ITEM_ACCESOS.isAdmin && this.pacientes.length > 0 && !this.spinner">
+    <div class="mx-auto">
+      <h5 class="text-center">Seleccione un Paciente</h5>
+      <app-paciente-lista [lista]="this.pacientes" (pacienteSeleccionado)="asignarPaciente($event)">
+      </app-paciente-lista>
+    </div>
+  </div>
+  
+  <div class="row container-listas" *ngIf="(!authSvc.ITEM_ACCESOS.isAdmin || pacienteSeleccionado) && !this.spinner">
+    <div class="mx-auto">
+      <h5 class="text-center">Seleccione una Especialidad</h5>
+      <app-especialidad-lista [lista]="this.especialidades" (especialidadSeleccionado)="asignarEspecialidad($event)">
+      </app-especialidad-lista>
+    </div>
+  </div>
+  
+  <div *ngIf="this.especialidadSeleccionado">
+    <div class="mx-auto">
+      <h5 class="text-center">Seleccione un Especialista</h5>
+      <app-especialista-lista [lista]="this.especialistas" (especialistaSeleccionado)="asignarEspecialista($event)">
+      </app-especialista-lista>
+    </div>
+  </div>
+
+  <div *ngIf="mensajeError" class="alert alert-danger mx-auto mt-3" role="alert">
+    {{ mensajeError }}
+  </div>
+
+  <div class="row container-listas" *ngIf="especialistaSeleccionado && !mensajeError">
+    <h5 class="text-center">Seleccione el día de su turno entre los próximos 15 días</h5>
+    <div class="col-md-12 mx-auto table-responsive">
+      <table class="table table-striped table-bordered table-responsive mx-auto">
+        <thead>
+          <tr>
+            <th *ngFor="let fecha of turnosDisponibles"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td *ngFor="let fecha of turnosDisponibles">
+              <button
+                class="btn btn-dark mb-2"
+                style="width: 150px"
+                (click)="mostrarHorarios(fecha)"
+              >
+                {{ fecha.fmt_date.date }} de {{ fecha.fmt_date.monthName }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="fechaElegida" class="row container-listas">
+    <div class="row mx-auto">
+      <h5 class="text-center">
+        Horarios disponibles para el día {{ fechaElegida.row_date.day }}/{{ fechaElegida.row_date.month }}/{{ fechaElegida.row_date.year }}
+      </h5>
+      <div *ngIf="fechaElegida.row_date.hours.length == 0" class="alert alert-danger mt-3" role="alert">
+        No posee horarios disponibles.
+      </div>
+      <div class="col-md-12 mx-auto table-responsive" *ngIf="fechaElegida.row_date.hours.length > 0">
+        <table class="table table-striped table-bordered table-responsive mx-auto">
+          <thead>
+            <tr>
+              <th *ngFor="let hora of fechaElegida.row_date.hours"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td *ngFor="let hora of fechaElegida.row_date.hours">
+                <button
+                  class="btn btn-success mb-2"
+                  (click)="fechaTurnoElegido(hora)"
+                  *ngIf="hora"
+                >
+                  {{ hora }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row text-center container-turno" *ngIf="especialistaSeleccionado">
+    <div *ngIf="especialistaSeleccionado">
+      <h3>Su turno:</h3>
+    </div>
+    <div *ngIf=" authSvc.ITEM_ACCESOS.isAdmin ">
+      <h5>
+        Paciente: {{ pacienteSeleccionado.apellido }}, {{ pacienteSeleccionado.nombre }} - {{ pacienteSeleccionado.dni }}
+      </h5>
+    </div>
+    <div *ngIf="especialistaSeleccionado">
+      <h5>
+        Especialista: {{ especialistaSeleccionado.apellido }}, {{ especialistaSeleccionado.nombre }}
+      </h5>
+    </div>
+    <div *ngIf="especialidadSeleccionado">
+      <h5>Especialidad: {{ especialidadSeleccionado.nombre }}</h5>
+    </div>
+    <div *ngIf="fechaElegida">
+      <h5>
+        Fecha: {{ fechaElegida.row_date.day }}/{{ fechaElegida.row_date.month }}/{{ fechaElegida.row_date.year }}
+      </h5>
+    </div>
+    <div *ngIf="horaElegida">
+      <h5>Hora: {{ horaElegida }} hs</h5>
+    </div>
+
+    <button *ngIf="horaElegida" class="w-20 btn btn-primary btn-lg mt-3" type="button" (click)="registrarTurno()">
+      Registrar Turno
+    </button>
+  </div>
+
+  <div style="margin: 0px 20px" class="alert alert-success mx-auto text-center" role="alert" *ngIf="successOperation">
+    Turno registrado con éxito!
+  </div>
+
+  <div class="mx-auto text-center mt-5">
+    <div [hidden]="!spinner" class="spinner-border text-dark mx-auto text-center" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</body>

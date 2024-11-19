@@ -1,0 +1,71 @@
+<body>
+    <div class="container-general mx-auto">
+      <div class="mx-auto">
+        <h2>MIS PACIENTES</h2>
+        <div *ngIf="pacientesEspecialista.length === 0" class="alert alert-warning">
+            <strong>No se han encontrado pacientes.</strong>
+          </div>
+        <div class="col-md-12 mx-auto table-responsive">
+          <table class="table table-responsive mx-auto">
+            <thead>
+              <tr>
+                <th *ngFor="let item of pacientesEspecialista; index as i">
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td *ngFor="let item of pacientesEspecialista; index as i">
+                  <div class="card mb-3 card-paciente" style="max-width: 700px">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img
+                          [src]="item.urlFotos.imagen1Url"
+                          appNotImage
+                          class="img-fluid rounded-start"
+                          alt="..."
+                        />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">
+                            {{ item.apellido }}, {{ item.nombre }}
+                          </h5>
+                          <div class="card-text" style="width: 100%">
+                            <ul class="list-group list-group-flush">
+                              <div
+                                *ngFor="
+                                  let turno of item.ultimosTresTurnos;
+                                  index as i
+                                "
+                                (click)="enviarTurno(turno)"
+                              >
+                                <li
+                                  class="list-group-item text-list-turno"
+                                  *ngIf="turno != ''"
+                                >
+                                  {{ turno.fecha }} - {{ turno.hora }} -
+                                  <b>{{ turno.especialidad.descripcion }}</b>
+                                </li>
+                              </div>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- HISTORIA CLINICA DEL TURNO SELECCIONADO 
+         MODIFICAR QUE SI NO HAY PACIENTES LO MUESTRE-->
+        <div *ngIf="turnoSeleccionado">
+          <app-historia-clinica-detalle [turnoDetalle]="turnoSeleccionado">
+          </app-historia-clinica-detalle>
+        </div>
+      </div>
+    </div>
+  </body>
+  

@@ -1,13 +1,113 @@
-<div class="welcome-container">
-    <h1>Bienvenidos a Clínica Online</h1>
-    
-    <img src="https://clinicamg.com.ar/wp-content/uploads/2023/12/chequeo-vip-header-1.png" alt="Logo de la Clínica" class="clinic-logo" />
-  
-    <p>Especialistas en salud comprometidos con tu bienestar.</p>
-  
-    <div class="button-container">
-      <button (click)="navigateToLogin()" class="btn-login">Ingresar</button>
-      <button (click)="navigateToRegister()" class="btn-register">Registrarse</button>
+<body>
+    <div
+      id="carouselExampleCaptions"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide-to="2"
+          aria-label="Slide 3"
+        ></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="https://st4.depositphotos.com/3662505/20756/i/450/depositphotos_207561022-stock-photo-stethoscope-and-pills-on-table.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://www.miperiodico.com.ar/wp-content/uploads/2021/05/clinicas.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://fotos.perfil.com/2023/12/23/trim/1280/720/23-12-2023-clinicas-1725596.jpg"
+            class="d-block w-100"
+            alt="..."
+          />
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
     </div>
-  </div>
-  
+    <section class="section-bienvenido container">
+      <div class="container-h3-bienvenido">
+        <h2>Bienvenido a <strong>Clínica OnLine</strong></h2>
+        <p>
+          Somos una Institución especialista en salud, cuenta actualmente con
+          consultorios (6 en la actualidad), dos laboratorios (físicos en la
+          clínica), y una sala de espera general. Está abierta al público de
+          lunes a viernes en el horario de 8:00 a 19:00, y los sábados en el
+          horario de 8:00 a 14:00.
+          <br />
+          <br />
+          Trabajan en ella profesionales de diversas especialidades, que ocupan
+          los consultorios acorde a su disponibilidad, y reciben en ellos
+          pacientes con turno para consulta o tratamiento. Dichos turnos son
+          pedidos por la web seleccionando el profesional o la especialidad. La
+          duración mínima de un turno es 30 minutos.” pero los profesionales
+          pueden cambiar la duración según su especialidad. Estos profesionales
+          pueden tener más de una especialidad. También contamos con un sector
+          dentro de la clínica que se encarga de la organización y
+          administración de la misma.
+        </p>
+        <div
+          style="text-align: center"
+          *ngIf="this.authService.usuario == null"
+        >
+          <button
+            class="btn-dark btn-lg"
+            type="button"
+            (click)="goIniciarSesion()"
+          >
+            Iniciar Sesión
+          </button>
+          <button
+            class="btn-dark btn-lg"
+            type="button"
+            (click)="goRegistrarme()"
+          >
+            Registrarme
+          </button>
+        </div>
+      </div>
+    </section>
+</body>

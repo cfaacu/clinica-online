@@ -1,0 +1,209 @@
+<nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container-fluid">
+    <img
+      src="https://i.postimg.cc/L8DqTVRV/2771402.png"
+      alt="logo"
+      width="35"
+      height="35"
+      style="margin-right: 10px"
+      class="img-logo"
+    />
+    <a class="navbar-brand">CLÍNICA ONLINE</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" (click)="goInicio()"
+            >INICIO</a
+          >
+        </li>
+        <div
+          *ngIf="
+            authService.ITEM_ACCESOS.isAdmin && authService.usuario
+          "
+        >
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              (click)="goAdmin()"
+            >
+              USUARIOS
+            </a>
+          </li>
+        </div>
+
+        <div
+          *ngIf="
+            authService.ITEM_ACCESOS.isEspecialista &&
+              authService.ITEM_ACCESOS.cuentaHabilitada &&
+              authService.usuario
+          "
+        >
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              TURNOS (ESPECIALISTA)
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" (click)="goMisTurnosEspecialista()"
+                  >MIS TURNOS</a
+                >
+              </li>
+            </ul>
+          </li>
+        </div>
+
+        <div
+          *ngIf="
+            authService.ITEM_ACCESOS.isEspecialista &&
+              authService.ITEM_ACCESOS.cuentaHabilitada &&
+              authService.usuario
+          "
+        >
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" (click)="goMisPacientes()"
+              >PACIENTES</a
+            >
+          </li>
+        </div>
+
+        <div
+          *ngIf="
+            authService.ITEM_ACCESOS.isPaciente && authService.usuario
+          "
+        >
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              TURNOS (PACIENTE)
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" (click)="goSolicitarTurnos()"
+                  >SOLICITAR</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="goMisTurnosPaciente()"
+                  >MIS TURNOS</a
+                >
+              </li>
+            </ul>
+          </li>
+        </div>
+
+        <div
+          *ngIf="
+            authService.ITEM_ACCESOS.isAdmin && authService.usuario
+          "
+        >
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              TURNOS
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" (click)="goSolicitarTurnos()"
+                  >SOLICITAR</a
+                >
+              </li>
+              <li *ngIf="authService.ITEM_ACCESOS.isAdmin">
+                <a class="dropdown-item" (click)="goVerTurnos()">VER TODOS</a>
+              </li>
+            </ul>
+          </li>
+        </div>
+
+        <div *ngIf="authService.usuario; else acceso">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle a-email"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ authService.usuario.email }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li
+                (click)="onEstadisticas()"
+                *ngIf="authService.ITEM_ACCESOS.isAdmin"
+              >
+                <a class="dropdown-item" aria-current="page">ESTADÍSTICAS</a>
+              </li>
+              <li (click)="onMiPerfil()">
+                <a class="dropdown-item" aria-current="page">MI PERFIL</a>
+              </li>
+              <li (click)="onLogout()">
+                <a class="dropdown-item" aria-current="page">SALIR</a>
+              </li>
+            </ul>
+          </li>
+        </div>
+
+        <!-- ----------------------------------- TEMPLATE ----------------------------------- -->
+        <ng-template #acceso>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              ACCEDER
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" (click)="goRegistrarme()"
+                  >REGISTRARME</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="goIniciarSesion()"
+                  >INICIAR SESIÓN</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>

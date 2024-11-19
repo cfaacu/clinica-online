@@ -1,0 +1,25 @@
+.container-general{
+    box-shadow: 1px 1px 5px gray;
+    padding: 20px;
+    margin-top: 15px;
+    width: 90%;
+    border-radius: 10px;
+}
+
+h2{
+    color: rgb(0, 134, 207);
+    box-shadow: 1px 1px 3px #999;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 5px;
+    text-transform: uppercase;
+  }
+
+  .subtitulo{
+    color: rgb(15, 10, 110);
+    box-shadow: 0px 3px 0px #999;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 25px;
+    margin-bottom: 10px;
+    }

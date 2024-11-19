@@ -1,0 +1,35 @@
+
+body{
+    background-color: rgb(242, 242, 242);
+    height: 150em;
+}
+@media only screen and (max-width: 769px) {
+    body{
+        height: 140em;
+    }
+}
+
+.container{
+    max-width: 100%;
+    padding: 20px;
+    box-shadow: 1px 1px 5px gray;
+}
+
+.tr-data:hover{
+    cursor: pointer;
+    background-color: rgb(176, 251, 255);
+}
+
+h3{
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+
+.table-responsive
+{
+    position: relative;
+    /* height: 250px!important; */
+    overflow: auto;
+}

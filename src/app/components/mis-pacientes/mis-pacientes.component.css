@@ -1,0 +1,65 @@
+body{
+    background-color: rgb(242, 242, 242);
+    height: 150em;
+  }
+  @media only screen and (max-width: 769px) {
+      body{
+          height: 140em;
+      }
+  }
+  
+  .containter-general{
+      padding: 20px;
+  }
+  
+  h2{
+    color: rgb(0, 134, 207);
+    border-radius: 10px;
+    padding: 5px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  h3{
+      padding-top: 10px;
+  }
+  
+  .table-responsive
+  {
+      position: relative;
+      max-height: 1000px!important;
+      overflow: auto;
+  }
+  .tr-data:hover{
+    cursor: pointer;
+    background-color: rgb(176, 251, 255);
+  }
+  td{
+    padding:10px;
+  }
+  
+  img{
+    width: 190px;
+    height: 200px;
+    border: 1px solid black;
+  }
+  .card-paciente{
+    padding: 10px;
+  }
+  .card-paciente:hover{
+    cursor: pointer;
+    box-shadow: 3px 3px 5px rgb(142, 223, 255);
+  }
+  
+  
+  table{
+    text-align: center;
+    color: rgb(77, 77, 77);
+    font-weight: 400;
+    margin-top: 10px;
+    padding: 20px;
+  }
+  
+  .text-list-turno:hover{
+    cursor: pointer;
+    background-color: rgb(102, 255, 255);
+  }

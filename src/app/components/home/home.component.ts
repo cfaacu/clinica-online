@@ -1,21 +1,30 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
+import { EspecialistaService } from '../../services/especialista.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(private router: Router) {}
+  constructor(public authService: AuthService, public router: Router, public especialistaService: EspecialistaService) {
+  }
 
-  navigateToLogin() {
+  ngOnInit(): void {
+
+  }
+
+  goIniciarSesion() {
     this.router.navigate(['/login']);
   }
 
-  navigateToRegister() {
+  goRegistrarme() {
     this.router.navigate(['/register']);
   }
 }

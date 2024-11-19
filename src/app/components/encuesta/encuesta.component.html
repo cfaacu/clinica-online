@@ -1,0 +1,109 @@
+<div class="container">
+    <form [formGroup]="formulario" (ngSubmit)="enviar()" class="mt-3">
+      <div class="text-center mt-3">
+        <h3>ENCUESTA</h3>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label class="form-label">¿Qué te parecio la atención?</label>
+        </div>
+        <div class="col-12">
+          <select
+            class="custom-select custom-select-lg mb-3"
+            formControlName="pregUno"
+          >
+            <option selected value="">Selecciona una opción</option>
+            <option value="Mala">Mala</option>
+            <option value="Buena">Buena</option>
+            <option value="Excelente">Excelente</option>
+          </select>
+  
+          <span
+            class="text-danger"
+            *ngIf="
+              formulario.get('pregUno')?.hasError('required') &&
+              formulario.get('pregUno')?.touched
+            "
+          >
+            Debes seleccionar una opción.</span
+          >
+        </div>
+      </div>
+      <br />
+      <!-- Pregunta 2-->
+      <div class="row">
+        <div class="col-12">
+          <label for="pregDos" class="form-label"
+            >¿Qué mejoras nos recomendas?</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="pregDos"
+            formControlName="pregDos"
+          />
+          <span
+            class="text-danger"
+            *ngIf="
+              formulario.get('pregDos')?.hasError('required') &&
+              formulario.get('pregDos')?.touched
+            "
+            >Debes contestar la pregunta.</span
+          >
+        </div>
+      </div>
+      <br />
+      <!-- Pregunta 3-->
+      <div class="row">
+        <div class="col-12">
+          <label class="form-label">¿Volverías a visitar nuestra Clínica?</label>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="pregTresSi"
+                value="SI"
+                formControlName="pregTres"
+              />
+            </div>
+          </div>
+          <label class="form-check-label" for="pregTresSi"> SI </label>
+          <div class="col-12">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="pregTresNo"
+                value="NO"
+                formControlName="pregTres"
+              />
+            </div>
+          </div>
+          <label class="form-check-label" for="pregTresNo"> NO </label>
+          <span
+            class="text-danger"
+            *ngIf="
+              formulario.get('pregTres')?.hasError('required') &&
+              formulario.get('pregTres')?.touched
+            "
+            >Debes seleccionar una opción.</span
+          >
+        </div>
+      </div>
+  
+      <br />
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="formulario.invalid"
+      >
+        Enviar
+      </button>
+    </form>
+  </div>
+  

@@ -1,0 +1,365 @@
+<div class="container-general">
+    <form [formGroup]="formulario" (ngSubmit)="aceptar()">
+      <br />
+      <div class="container-general container">
+        <h2 class="">Carga de Historia Clínica</h2>
+        <div class="form-control">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Altura"
+                  formControlName="Altura"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    formulario.get('Altura')?.hasError('required') &&
+                    formulario.get('Altura')?.touched
+                  "
+                  >La altura es requerida.</span
+                >
+              </div>
+  
+              <div class="col-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Peso"
+                  formControlName="Peso"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    formulario.get('Peso')?.hasError('required') &&
+                    formulario.get('Peso')?.touched
+                  "
+                  >El peso es requerido.</span
+                >
+              </div>
+  
+              <div class="col-3">
+                <input
+                  class="form-control"
+                  type="number"
+                  placeholder="Temperatura"
+                  formControlName="Temperatura"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    formulario.get('Temperatura')?.hasError('min') &&
+                    formulario.get('Temperatura')?.touched
+                  "
+                  >La Temperatura minima es 34.</span
+                >
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    formulario.get('Temperatura')?.hasError('required') &&
+                    formulario.get('Temperatura')?.touched
+                  "
+                  >La Temperatura es requerida.</span
+                >
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    formulario.get('Temperatura')?.hasError('max') &&
+                    formulario.get('Temperatura')?.touched
+                  "
+                  >La Temperatura máxima es 42.</span
+                >
+              </div>
+  
+              <div class="col-3">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Presión"
+                  formControlName="Presion"
+                />
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    formulario.get('Presion')?.hasError('estaMal') &&
+                    formulario.get('Presion')?.touched
+                  "
+                  >La Presión debe tener solo numeros.
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    formulario.get('Presion')?.hasError('required') &&
+                    formulario.get('Presion')?.touched
+                  "
+                  >La presion es requerida.
+                </span>
+                <span
+                  class="text-danger"
+                  *ngIf="formulario.get('Presion')?.hasError('Presion')"
+                  >La presion debe tener solo 3 caracteres.</span
+                >
+              </div>
+            </div>
+            <br />
+  
+            <div class="row">
+              <div class="form-group">
+                <h4 class="text-muted">Datos Dinámicos</h4>
+                <div class="col-3">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Clave 1"
+                    formControlName="Clave1"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Clave1')?.hasError('required') &&
+                      formulario.get('Clave1')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+  
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Valor 1"
+                    formControlName="Valor1"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Valor1')?.hasError('required') &&
+                      formulario.get('Valor1')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+                </div>
+                <br />
+                <div class="col-3">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Clave 2"
+                    formControlName="Clave2"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Clave2')?.hasError('required') &&
+                      formulario.get('Clave2')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+  
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Valor 2"
+                    formControlName="Valor2"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Valor2')?.hasError('required') &&
+                      formulario.get('Valor2')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+                </div>
+                <br />
+                <div class="col-3">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Clave 3"
+                    formControlName="Clave3"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Clave3')?.hasError('required') &&
+                      formulario.get('Clave3')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+  
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Valor 3"
+                    formControlName="Valor3"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Valor3')?.hasError('required') &&
+                      formulario.get('Valor3')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+                </div>
+                <br />
+                <div class="col-3">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Clave 4"
+                    formControlName="Clave4"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Clave4')?.hasError('required') &&
+                      formulario.get('Clave4')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+                  <label
+                    style="margin-top: 3px; margin-left: 5px; margin-right: 15px"
+                    >Valor de 0 a 100
+                  </label>
+                  <input
+                    type="range"
+                    placeholder="Valor 4"
+                    formControlName="Valor4"
+                    min="0"
+                    max="100"
+                    list="rango"
+                    step="5"
+                  />
+                  <datalist id="rango">
+                    <option value="0" label="0"></option>
+                    <option value="10"></option>
+                    <option value="20"></option>
+                    <option value="30"></option>
+                    <option value="40"></option>
+                    <option value="50" label="50"></option>
+                    <option value="60"></option>
+                    <option value="70"></option>
+                    <option value="80"></option>
+                    <option value="90"></option>
+                    <option value="100" label="100"></option>
+                  </datalist>
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Valor4')?.hasError('required') &&
+                      formulario.get('Valor4')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+                </div>
+                <br />
+                <div class="col-3">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Clave 5"
+                    formControlName="Clave5"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Clave5')?.hasError('required') &&
+                      formulario.get('Clave5')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+  
+                  <input
+                    class="form-control"
+                    type="number"
+                    placeholder="Valor 5"
+                    formControlName="Valor5"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Valor5')?.hasError('required') &&
+                      formulario.get('Valor5')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+                </div>
+                <br />
+                <div class="col-3">
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="Clave 6"
+                    formControlName="Clave6"
+                  />
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Clave6')?.hasError('required') &&
+                      formulario.get('Clave6')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+  
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      formControlName="Valor6"
+                      id="flexSwitchCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexSwitchCheckDefault"
+                      >NO/SI
+                    </label>
+                  </div>
+  
+                  <span
+                    class="text-danger"
+                    *ngIf="
+                      formulario.get('Valor6')?.hasError('required') &&
+                      formulario.get('Valor6')?.touched
+                    "
+                    >Este campo es requerido</span
+                  >
+                </div>
+                <br />
+                <div class="alert alert-success" role="alert">
+                  <h4 class="alert-heading">Turno</h4>
+                  <p>
+                    Paciente atendido:
+                    <b
+                      >{{ turno.paciente.nombre }}
+                      {{ turno.paciente.apellido }}</b
+                    >, para la especialidad: <b>{{ turno.especialidad.nombre }}</b
+                    >.
+                  </p>
+                  <p>
+                    Reseña/Comentario al respecto:
+                    <i>"{{ turno.comentariosEspecialista }}" </i>
+                  </p>
+                  <hr />
+                  <p class="mb-0">
+                    Fecha de la atención:
+                    <b>{{ turno.fecha }} {{ turno.hora }}</b>
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <button
+                  class="w-20 btn btn-primary btn-lg mt-1"
+                  type="submit"
+                  [disabled]="formulario.invalid"
+                >
+                  Enviar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

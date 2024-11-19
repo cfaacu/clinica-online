@@ -1,0 +1,191 @@
+<body>
+    <section class="container section-register">
+      <div class="row g-4 container-form mx-auto">
+        <h3 class="text-center">Iniciar sesión</h3>
+  
+        <div class="col-md-5 col-lg-7 mx-auto">
+          <form
+            [formGroup]="formulario"
+            (ngSubmit)="submit()"
+            class="needs-validation"
+          >
+            <div class="row g-4">
+              <div class="col-sm-12">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  formControlName="email"
+                  autocomplete="on"
+                />
+                <small
+                  *ngIf="
+                    formulario.get('email')?.hasError('required') &&
+                    formulario.get('email')?.touched
+                  "
+                  class="text-danger"
+                  >El correo electrónico es requerido</small
+                >
+              </div>
+              <div class="col-sm-12">
+                <label for="password" class="form-label">Constraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  autocomplete="off"
+                />
+                <small
+                  *ngIf="
+                    formulario.get('password')?.hasError('required') &&
+                    formulario.get('password')?.touched
+                  "
+                  class="text-danger"
+                  >La contraseña es requerida</small
+                >
+                <small
+                  *ngIf="
+                    formulario.get('password')?.hasError('minLength') &&
+                    formulario.get('password')?.touched
+                  "
+                  class="text-danger"
+                  >La contraseña debe contener al menos 6 caracteres</small
+                >
+              </div>
+              <div *ngIf="this.authService.msjError != ''" class="col-md-12">
+                <label class="text-danger"
+                  >- {{ this.authService.msjError }}</label
+                >
+              </div>
+  
+              <!-- <hr class="my-4" /> -->
+  
+              <div>
+                <button
+                  class="w-100 btn btn-primary btn-lg"
+                  type="submit"
+                  [disabled]="formulario.invalid"
+                  [hidden]="spinner"
+                >
+                  Ingresar
+                </button>
+              </div>
+              <div
+                [hidden]="!spinner"
+                class="spinner-border text-dark mx-auto"
+                role="status"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-5 col-lg-8 order-md-last mx-auto">
+          <label for="especialidades" class="form-label" style="margin: 20px 0px"
+            >Si usted no se ha registrado nunca en el portal pero es paciente de
+            nuestra institución, ingrese en la opción Acceder/Registrarme para
+            crear su usuario.</label
+          >
+        </div>
+      </div>
+      <hr class="my-4" />
+      <h3 class="text-center">Accesos</h3>
+      <div class="quick-access-buttons">
+  
+        <button class="quick-access-button admin" (click)="onAdmin1()">
+          <img src="https://firebasestorage.googleapis.com/v0/b/clinica-especialista-c2249.firebasestorage.app/o/administradores%2FNnahW5LquSVd2EvEiOWcDuMoNed2%2FimagenPerfil?alt=media&token=86ee2786-f059-46d7-9dd4-d1a4d2a1c775" alt="Imagen de perfil del especialista">
+          <span>Julti<br>(Admin)</span>
+        </button>
+      
+        <button class="quick-access-button specialist" (click)="onEspecialista1()">
+          <img src="https://firebasestorage.googleapis.com/v0/b/clinica-especialista-c2249.firebasestorage.app/o/especialistas%2FIl6Xjc94GrYb7fPAshyLIHAZegH3%2FimagenPerfil?alt=media&token=1218a85c-2dd9-4e30-ab1d-b238c4fa349f" alt="Imagen de perfil del paciente">
+          <span>Erzu<br>(Especialista)</span>
+        </button>
+      
+        <button class="quick-access-button patient" (click)="onEspecialista2()">
+          <img src="https://firebasestorage.googleapis.com/v0/b/clinica-especialista-c2249.firebasestorage.app/o/especialistas%2FIl6Xjc94GrYb7fPAshyLIHAZegH3%2FimagenPerfil?alt=media&token=1218a85c-2dd9-4e30-ab1d-b238c4fa349f" alt="Imagen de perfil del paciente">
+          <span>Mimi<br>(Especialista)</span>
+        </button>
+      
+        <button class="quick-access-button admin" (click)="onPaciente1()">
+          <img src="https://firebasestorage.googleapis.com/v0/b/clinica-especialista-c2249.firebasestorage.app/o/pacientes%2F42Qe24PklvdXQLZ0HDlkokHGRcA3%2Fimagen1?alt=media&token=94ad5b26-b6cf-45b7-adda-17a8c992cb27" alt="Imagen de perfil del administrador">
+          <span>Kilmi<br>(Paciente)</span>
+        </button>
+      
+        <button class="quick-access-button admin" (click)="onPaciente2()">
+          <img src="https://firebasestorage.googleapis.com/v0/b/clinica-especialista-c2249.firebasestorage.app/o/pacientes%2F42Qe24PklvdXQLZ0HDlkokHGRcA3%2Fimagen1?alt=media&token=94ad5b26-b6cf-45b7-adda-17a8c992cb27" alt="Imagen de perfil del administrador">
+          <span>Rugni<br>(Paciente)</span>
+        </button>
+      
+        <button class="quick-access-button admin" (click)="onPaciente3()">
+          <img src="https://firebasestorage.googleapis.com/v0/b/clinica-especialista-c2249.firebasestorage.app/o/pacientes%2F42Qe24PklvdXQLZ0HDlkokHGRcA3%2Fimagen1?alt=media&token=94ad5b26-b6cf-45b7-adda-17a8c992cb27" alt="Imagen de perfil del administrador">
+          <span>Yesti<br>(Paciente)</span>
+        </button>
+      
+      </div>
+      <!-- <div class="container-table table-responsive">
+        <table class="mx-auto">
+          <thead class="">
+            <tr>
+              <th>ADMIN</th>
+              <th>ESPECIALISTA</th>
+              <th>ESPECIALISTA</th>
+              <th>PACIENTE</th>
+              <th>PACIENTE</th>
+              <th>PACIENTE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img
+                  src="../../../../../assets/admin/yo.jfif"
+                  alt="img-usuario"
+                  (click)="onAdmin1()"
+                />
+              </td>
+              <td>
+                <img
+                  src="../../../../../assets/doctores/gomez-doctor.jfif"
+                  alt="img-usuario"
+                  (click)="onEspecialista1()"
+                />
+              </td>
+              <td>
+                <img
+                  src="../../../../../assets/doctores/paulda-doctora.jpg"
+                  alt="img-usuario"
+                  (click)="onEspecialista2()"
+                />
+              </td>
+              <td>
+                <img
+                  src="../../../../../assets/pacientes/p-1-1.jfif"
+                  alt="img-usuario"
+                  (click)="onPaciente1()"
+                />
+              </td>
+              <td>
+                <img
+                  src="../../../../../assets/pacientes/p2-1.webp"
+                  alt="img-usuario"
+                  (click)="onPaciente2()"
+                />
+              </td>
+              <td>
+                <img
+                  src="../../../../../assets/pacientes/p3-2.jpg"
+                  alt="img-usuario"
+                  (click)="onPaciente3()"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div> -->
+    </section>
+    
+  </body>
+  

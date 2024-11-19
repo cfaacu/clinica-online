@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="col-md-12 mx-auto table-responsive">
+      <button *ngFor="let item of lista" (click)="enviarEspecialidad(item)">
+        <p>{{ item.nombre }}</p>
+      </button>
+      <!-- <table class="table table-striped table-bordered table-responsive mx-auto">
+        <thead>
+          <tr>
+            <th>Especialidades</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td *ngFor="let item of lista" (click)="enviarEspecialidad(item)">
+              {{ item.nombre }} 
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+    </div>
+  </div>
+  

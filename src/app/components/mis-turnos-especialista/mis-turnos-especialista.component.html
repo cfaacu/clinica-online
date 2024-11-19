@@ -1,0 +1,73 @@
+<body>
+    <div class="containter-general">
+      <h2 class="text-center">Mis Turnos</h2>
+  
+      <!-- Filtro de búsqueda por especialidad o paciente -->
+      <div class="row">
+        <h4>Búsqueda por Especialidad o Paciente</h4>
+        <div class="form-group col-md-6">
+          <input class="form-control" [(ngModel)]="filter" ng-blur="ngBlur()" />
+        </div>
+      </div>
+  
+      <!-- Indicador de carga mientras se obtienen los turnos -->
+      <div *ngIf="isLoading" class="mx-auto text-center mt-5">
+        <div class="spinner-border text-dark mx-auto" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+  
+      <!-- Mensaje cuando no hay turnos disponibles -->
+      <div *ngIf="!isLoading && turnosPaciente.length === 0" class="mx-auto text-center mt-5">
+        <p>No tienes turnos disponibles.</p>
+      </div>
+  
+      <!-- Tabla de turnos -->
+      <div class="col-md-12 mx-auto table-responsive mt-3" *ngIf="!isLoading && turnosPaciente.length > 0">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Fecha y Hora</th>
+              <th>Paciente</th>
+              <th>Especialista</th>
+              <th>Especialidad</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let turno of turnosPaciente | filterEspecialista: filter; index as i"
+              class="tr-data"
+              (click)="asignarTurno(turno)"
+            >
+              <th>{{ i + 1 }}</th>
+              <td>{{ turno.fecha }} - {{ turno.hora }}</td>
+              <td>{{ turno.paciente.nombre }} {{ turno.paciente.apellido }}</td>
+              <td>{{ turno.especialista.nombre }} {{ turno.especialista.apellido }}</td>
+              <td>{{ turno.especialidad.descripcion }}</td>
+              <td
+                [ngClass]="{
+                  'text-primary': turno.estado === 'ACEPTADO',
+                  'text-warning': turno.estado === 'PENDIENTE',
+                  'text-success': turno.estado === 'FINALIZADO',
+                  'text-danger': turno.estado !== 'ACEPTADO' && turno.estado !== 'PENDIENTE' && turno.estado !== 'FINALIZADO'
+                }"
+              >
+                <b>{{ turno.estado }}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Detalle del turno seleccionado -->
+      <app-turno-detalle *ngIf="turnoSeleccionado" [turnoDetalle]="turnoSeleccionado"></app-turno-detalle>
+  
+      <!-- Alta de historia clínica si es un turno finalizado -->
+      <div *ngIf="turnoSeleccionado && mostrarAltaHistoria">
+        <app-historia-clinica-alta *ngIf="turnoSeleccionado.estado === 'FINALIZADO'" [turno]="turnoSeleccionado"></app-historia-clinica-alta>
+      </div>
+    </div>
+  </body>
+  

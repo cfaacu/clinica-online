@@ -1,0 +1,26 @@
+
+img{
+    width: 140px;
+    height: 150px;
+    box-shadow: 0px 0px 5px #999;
+    padding: 10px;
+    margin:0px 10px;
+}
+img:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 6px rgb(0, 115, 255);
+    /* box-shadow: 0px 0px 6px rgb(0, 115, 255); */
+}
+
+
+table{
+    text-align: center;
+    color: rgb(77, 77, 77);
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+th:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 6px rgb(0, 115, 255);
+}

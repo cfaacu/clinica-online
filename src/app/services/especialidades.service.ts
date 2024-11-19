@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { addDoc, collection, CollectionReference, Firestore, getDocs, query, where } from '@angular/fire/firestore';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,25 @@ export class EspecialidadesService {
       return [];
     }
   }
+  
+  public getAllEsp(): Observable<any[]> {
+    const especialistasQuery = query(this.especialidadesRef);
 
+    return from(
+      getDocs(especialistasQuery)
+        .then((snapshot) => {
+          const especialistas: any[] = [];
+          snapshot.forEach(doc => {
+            especialistas.push(doc.data());
+          });
+          return especialistas;
+        })
+        .catch((error) => {
+          console.error('Error al obtener los especialistas:', error);
+          throw error;
+        })
+    );
+  }
   async agregarEspecialidad(nuevaEspecialidad: string): Promise<void> {
     const especialidadQuery = query(this.especialidadesRef, where('nombre', '==', nuevaEspecialidad));
     const snapshot = await getDocs(especialidadQuery);

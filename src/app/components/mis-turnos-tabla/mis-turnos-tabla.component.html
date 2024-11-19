@@ -1,0 +1,88 @@
+<body>
+    <div class="containter-general">
+      <h2>USUARIO/S - TURNOS</h2>
+      <div class="row">
+        <h4>Busqueda por Especialidad o Especialista</h4>
+        <div class="form-group col-md-6">
+          <input class="form-control" [(ngModel)]="filter" ng-blur="ngBlur()" />
+        </div>
+      </div>
+  
+      <div class="mx-auto text-center mt-5" *ngIf="!turnosPaciente">
+        <div class="spinner-border text-dark mx-auto text-center" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+  
+      <div class="col-md-12 mx-auto table-responsive mt-3" *ngIf="turnosPaciente">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Fecha y Hora</th>
+              <th>Paciente</th>
+              <th>Especialista</th>
+              <th>Especialidad</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="tr-data"
+              *ngFor="
+                let turno of turnosPaciente | filterPaciente: filter;
+                index as i
+              "
+              (click)="asignarTurno(turno)"
+            >
+              <th>{{ i + 1 }}</th>
+              <td>{{ turno.fecha }} - {{ turno.hora }}</td>
+              <td>{{ turno.paciente.nombre }} {{ turno.paciente.apellido }}</td>
+              <td>
+                {{ turno.especialista.nombre }} {{ turno.especialista.apellido }}
+              </td>
+              <td>{{ turno.especialidad.nombre }}</td>
+              <td
+                [ngClass]="
+                  turno.estado == 'ACEPTADO'
+                    ? 'text-primary'
+                    : turno.estado == 'PENDIENTE'
+                    ? 'text-warning'
+                    : turno.estado == 'FINALIZADO'
+                    ? 'text-success'
+                    : 'text-danger'
+                "
+              >
+                <b>{{ turno.estado }}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <app-turno-detalle
+        *ngIf="turnoSeleccionado"
+        [turnoDetalle]="turnoSeleccionado"
+      ></app-turno-detalle>
+  
+      <div
+        *ngIf="
+          authSvc.ITEM_ACCESOS.isPaciente &&
+          turnoSeleccionado &&
+          (turnoSeleccionado.estado == 'REALIZADO' ||
+            turnoSeleccionado.estado == 'FINALIZADO') &&
+          turnoSeleccionado.comentariosEspecialista != '' &&
+          (turnoSeleccionado.encuesta == '' ||
+            turnoSeleccionado.encuesta == undefined)
+        "
+      >
+        <app-encuesta [turno]="turnoSeleccionado"></app-encuesta>
+      </div>
+  
+      <app-historia-clinica-detalle
+        *ngIf="turnoSeleccionado && turnoSeleccionado.historiaClinica != null"
+        [turnoDetalle]="turnoSeleccionado"
+      ></app-historia-clinica-detalle>
+    </div>
+  </body>
+  

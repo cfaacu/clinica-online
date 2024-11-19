@@ -1,0 +1,9 @@
+form{
+    box-shadow: 1px 1px 5px gray;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+label{
+    font-size: 15px;
+}

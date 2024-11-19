@@ -1,65 +1,108 @@
-<!-- register.component.html -->
-<div class="register-container">
-    <h2>Registro de Usuarios</h2>
-    <form [formGroup]="formularioRegistro" (ngSubmit)="alEnviar()">
-      
-      <!-- Campo de selección de tipo de usuario -->
-      <div>
-        <label>Tipo de usuario:</label>
-        <select formControlName="tipoUsuario" (change)="cambiarTipoUsuario()">
-          <option value="paciente">Paciente</option>
-          <option value="especialista">Especialista</option>
-          <option value="admin">Admin</option>
-        </select>
-      </div>
-  
-      <!-- Campos comunes para todos los usuarios -->
-      <div>
-        <label>Nombre:</label>
-        <input type="text" formControlName="nombre" required />
-  
-        <label>Apellido:</label>
-        <input type="text" formControlName="apellido" required />
-  
-        <label>Edad:</label>
-        <input type="number" formControlName="edad" required />
-  
-        <label>DNI:</label>
-        <input type="text" formControlName="dni" required />
-  
-        <label>Email:</label>
-        <input type="email" formControlName="correo" required />
-  
-        <label>Contraseña:</label>
-        <input type="password" formControlName="contraseña" required />
-      </div>
-  
-      <!-- Campos adicionales para Pacientes -->
-      <div *ngIf="esPaciente">
-        <label>Obra Social:</label>
-        <input type="text" formControlName="obraSocial" />
-  
-        <label>Imágenes de Perfil:</label>
-        <input type="file" formControlName="imagenesPerfil" multiple />
-      </div>
-  
-      <!-- Campos adicionales para Especialistas -->
-      <div *ngIf="esEspecialista">
-        <label>Especialidad:</label>
-        <select formControlName="especialidad">
-          <option *ngFor="let especialidad of especialidades" [value]="especialidad">{{ especialidad }}</option>
-          <option value="Otra">Otra</option>
-        </select>
-        
-        <!-- Campo para nueva especialidad, visible solo si se selecciona "Otra" -->
-        <input *ngIf="otraEspecialidadSeleccionada" type="text" placeholder="Ingrese nueva especialidad" formControlName="nuevaEspecialidad" />
-  
-        <label>Imagen de perfil:</label>
-        <input type="file" formControlName="imagenPerfil" />
-      </div>
-  
-      <!-- Botón de envío del formulario -->
-      <button type="submit" [disabled]="formularioRegistro.invalid">Registrar</button>
-    </form>
+<main class="main-container">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="https://cdn-icons-png.flaticon.com/512/2771/2771402.png" alt="" width="72" height="57">
+    <h2>Formulario de Registro</h2>
+    <p class="lead" *ngIf="!tipoSeleccionado">Por favor, seleccione si desea registrarse como especialista o paciente.</p>
   </div>
-  
+
+  <!-- Selección de tipo de usuario: Especialista, Paciente o Administrador -->
+  <div *ngIf="!tipoSeleccionado" class="d-flex justify-content-center mb-4">
+    <div class="m-3">
+      <img src="https://i.postimg.cc/hPdp3BYs/doctor-icon-134827.png" alt="Especialista" class="img-fluid pointer" (click)="seleccionarTipo('especialista')" />
+      <p class="text-center">Especialista</p>
+    </div>
+    <div class="m-3">
+      <img src="https://i.postimg.cc/VNDRbLSf/fever-thermometer-coronavirus-virus-icon-134832.png" alt="Paciente" class="img-fluid pointer" (click)="seleccionarTipo('paciente')" />
+      <p class="text-center">Paciente</p>
+    </div>
+    <div class="m-3" *ngIf="authService.ITEM_ACCESOS.isAdmin">
+      <img src="https://i.postimg.cc/J09K46sj/manager-icon-129392.png" alt="Administrador" class="img-fluid pointer" (click)="seleccionarTipo('administrador')" />
+      <p class="text-center">Administrador</p>
+    </div>
+  </div>
+
+  <!-- Formulario de Registro, visible solo después de seleccionar tipo -->
+  <div *ngIf="tipoSeleccionado">
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <app-tabla-especialidades *ngIf="esEspecialista" [especialidades]="especialidades" (especialidadesSeleccionadas)="actualizarEspecialidades($event)"></app-tabla-especialidades>
+      </div>
+
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Datos del Usuario</h4>
+        <form [formGroup]="formularioRegistro" (ngSubmit)="alEnviar()" class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" formControlName="nombre" required />
+              <div class="invalid-feedback">Nombre requerido.</div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellido" formControlName="apellido" required />
+              <div class="invalid-feedback">Apellido requerido.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="edad" class="form-label">Edad</label>
+              <input type="number" class="form-control" id="edad" formControlName="edad" required />
+              <div class="invalid-feedback">Edad requerida.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="dni" class="form-label">DNI</label>
+              <input type="text" class="form-control" id="dni" formControlName="dni" required />
+              <div class="invalid-feedback">DNI requerido.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="correo" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="correo" formControlName="correo" required />
+              <div class="invalid-feedback">Correo electrónico requerido.</div>
+            </div>
+
+            <div class="col-12">
+              <label for="contraseña" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="contraseña" formControlName="contraseña" required />
+              <div class="invalid-feedback">Contraseña requerida.</div>
+            </div>
+
+            <!-- Si es un administrador, mostramos los campos específicos -->
+            <div *ngIf="esAdmin" class="col-12">
+              <label for="imagenAdmin" class="form-label">Imagen de Perfil (Admin)</label>
+              <input type="file" id="imagenAdmin" (change)="onFileChange($event, 'imagenAdmin')" />
+            </div>
+
+            <!-- Si es un paciente, mostramos el campo de obraSocial -->
+            <div *ngIf="esPaciente" class="col-12">
+              <label for="obraSocial" class="form-label">Obra Social</label>
+              <input type="text" class="form-control" id="obraSocial" formControlName="obraSocial" required />
+            </div>
+
+            <!-- Si es un paciente, mostramos los campos de imágenes adicionales -->
+            <div *ngIf="esPaciente" class="col-12">
+              <label for="imagenPaciente1" class="form-label">Imagen 1 (Paciente)</label>
+              <input type="file" id="imagenPaciente1" (change)="onFileChange($event, 'imagenPaciente1')" />
+            </div>
+            <div *ngIf="esPaciente" class="col-12">
+              <label for="imagenPaciente2" class="form-label">Imagen 2 (Paciente)</label>
+              <input type="file" id="imagenPaciente2" (change)="onFileChange($event, 'imagenPaciente2')" />
+            </div>
+
+            <div *ngIf="esEspecialista" class="col-12">
+              <label for="imagenEspecialista" class="form-label">Imagen de Perfil (Especialista)</label>
+              <input type="file" id="imagenEspecialista" (change)="onFileChange($event, 'imagenEspecialista')" />
+            </div>
+          </div>
+
+          <app-captcha-propio (captchaValidado)="handleCaptchaValidado($event)"></app-captcha-propio>
+          <p *ngIf="!captchaValidado" class="text-warning">Por favor, valide el CAPTCHA antes de continuar.</p>
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit" [disabled]="formularioRegistro.invalid || !captchaValidado">Registrar</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

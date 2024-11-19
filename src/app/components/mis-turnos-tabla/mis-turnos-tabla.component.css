@@ -1,0 +1,41 @@
+body{
+    background-color: rgb(242, 242, 242);
+    height: 140em;
+}
+@media only screen and (max-width: 769px) {
+    body{
+        height: 160em;
+    }
+}
+
+.containter-general{
+    padding: 20px;
+}
+
+.tr-data:hover{
+    cursor: pointer;
+    background-color: rgb(176, 251, 255);
+}
+
+h2{
+    color: rgb(0, 134, 207);
+    border-radius: 10px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+
+img{
+    width: 100px;
+    height: 110px;
+    box-shadow: 0px 0px 5px #999;
+    padding: 10px;
+    margin:0px 10px;
+}
+
+.table-responsive
+{
+    position: relative;
+max-height: 250px!important;
+overflow: auto;
+}

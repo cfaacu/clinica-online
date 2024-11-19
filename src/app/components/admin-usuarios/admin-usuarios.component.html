@@ -1,0 +1,23 @@
+<div class="container mt-5">
+    <h2>Gestión de Usuarios</h2>
+  
+    <!-- Botón para redirigir al formulario de registro para crear un nuevo Administrador -->
+    <button class="btn btn-primary mb-3" (click)="redirectToRegister()">Agregar Administrador</button>
+  
+    <!-- Lista de Especialistas -->
+    <div *ngIf="isLoading">Cargando...</div>
+    <div *ngIf="!isLoading && usuarios.length === 0">No hay usuarios registrados.</div>
+  
+    <div *ngIf="!isLoading">
+      <ul>
+        <li *ngFor="let usuario of usuarios">
+          <div>{{ usuario.nombre }} {{ usuario.apellido }}</div>
+          <div>
+            <button (click)="cambiarEstado(usuario, true)" class="btn btn-success">Habilitar</button>
+            <button (click)="cambiarEstado(usuario, false)" class="btn btn-danger">Inhabilitar</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  

@@ -1,0 +1,28 @@
+<div class="container">
+  <!-- Si la lista de especialistas está vacía, mostramos el mensaje -->
+  <div *ngIf="lista.length === 0" class="alert alert-warning text-center" role="alert">
+    No hay especialistas disponibles para esta especialidad en este momento.
+  </div>
+
+  <!-- Si la lista de especialistas no está vacía, mostramos la tabla -->
+  <div class="col-md-12 mx-auto table-responsive" *ngIf="lista.length > 0">
+    <table class="table table-striped table-bordered table-responsive mx-auto">
+      <thead>
+        <tr>
+          <th *ngFor="let item of lista" (click)="enviarEspecialista(item)">
+            {{ item.apellido }}, {{ item.nombre }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td *ngFor="let item of lista" (click)="enviarEspecialista(item)">
+            <div>
+              <img [src]="item.imagenPerfil" appNotImage />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

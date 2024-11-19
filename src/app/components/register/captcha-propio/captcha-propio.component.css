@@ -1,0 +1,19 @@
+/* Estilos adicionales para mejorar la apariencia del CAPTCHA */
+.captcha-container {
+    max-width: 400px;  /* Limita el ancho máximo para evitar que se estire demasiado */
+    margin: 0 auto;    /* Centra el contenedor */
+    background-color: #f9f9f9;  /* Fondo claro */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .captcha-image {
+    border-radius: 8px;  /* Bordes redondeados en la imagen */
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

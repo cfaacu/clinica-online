@@ -1,0 +1,34 @@
+<div class="captcha-container d-flex flex-column align-items-center p-4 border rounded shadow-sm">
+    <!-- Imagen del CAPTCHA -->
+    <img [src]="captchaImage" alt="Captcha" class="captcha-image mb-3" style="max-width: 100%; height: auto; border-radius: 8px;">
+    
+    <!-- Campo de entrada del CAPTCHA -->
+    <div class="form-group w-100 mb-3">
+      <input 
+        type="text" 
+        [(ngModel)]="userInput" 
+        placeholder="Ingrese el texto de la imagen" 
+        class="form-control form-control-lg" 
+        [ngClass]="{'is-invalid': captchaValido === false && userInput.length > 0}" 
+        required
+      />
+      <div *ngIf="captchaValido === false" class="invalid-feedback">
+        Respuesta incorrecta. Inténtalo de nuevo.
+      </div>
+    </div>
+    
+    <!-- Botón de validación -->
+    <button 
+      (click)="validarCaptcha()" 
+      class="btn btn-lg btn-primary w-100" 
+      [disabled]="!userInput.trim().length"
+    >
+      Validar
+    </button>
+    
+    <!-- Mensaje de error -->
+    <div *ngIf="captchaValido === false" class="alert alert-danger mt-3 w-100 text-center" role="alert">
+      <strong>Error:</strong> Respuesta incorrecta.
+    </div>
+  </div>
+  
