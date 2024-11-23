@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <!-- Formulario de Registro, visible solo después de seleccionar tipo -->
+  <!-- Formulario de Registro -->
   <div *ngIf="tipoSeleccionado">
     <div class="row g-5">
       <div class="col-md-5 col-lg-4 order-md-last">
@@ -32,75 +32,86 @@
         <h4 class="mb-3">Datos del Usuario</h4>
         <form [formGroup]="formularioRegistro" (ngSubmit)="alEnviar()" class="needs-validation" novalidate>
           <div class="row g-3">
+            <!-- Nombre -->
             <div class="col-sm-6">
               <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" formControlName="nombre" required />
-              <div class="invalid-feedback">Nombre requerido.</div>
+              <input type="text" class="form-control" id="nombre" formControlName="nombre" [ngClass]="{'is-invalid': isFieldInvalid('nombre')}" />
+              <div class="invalid-feedback">
+                <span *ngIf="formularioRegistro.get('nombre')?.errors?.['pattern']">Solo se permiten letras.</span>
+              </div>
             </div>
 
+            <!-- Apellido -->
             <div class="col-sm-6">
               <label for="apellido" class="form-label">Apellido</label>
-              <input type="text" class="form-control" id="apellido" formControlName="apellido" required />
-              <div class="invalid-feedback">Apellido requerido.</div>
+              <input type="text" class="form-control" id="apellido" formControlName="apellido" [ngClass]="{'is-invalid': isFieldInvalid('apellido')}" />
+              <div class="invalid-feedback">
+                <span *ngIf="formularioRegistro.get('apellido')?.errors?.['pattern']">Solo se permiten letras.</span>
+              </div>
             </div>
 
+            <!-- Edad -->
             <div class="col-12">
               <label for="edad" class="form-label">Edad</label>
-              <input type="number" class="form-control" id="edad" formControlName="edad" required />
-              <div class="invalid-feedback">Edad requerida.</div>
+              <input type="number" class="form-control" id="edad" formControlName="edad" [ngClass]="{'is-invalid': isFieldInvalid('edad')}" />
+              <div class="invalid-feedback">
+                <span *ngIf="formularioRegistro.get('edad')?.errors?.['min']">Debe tener al menos 22 años.</span>
+              </div>
             </div>
 
+            <!-- DNI -->
             <div class="col-12">
               <label for="dni" class="form-label">DNI</label>
-              <input type="text" class="form-control" id="dni" formControlName="dni" required />
-              <div class="invalid-feedback">DNI requerido.</div>
+              <input type="text" class="form-control" id="dni" formControlName="dni" [ngClass]="{'is-invalid': isFieldInvalid('dni')}" />
+              <div class="invalid-feedback">
+                <span *ngIf="formularioRegistro.get('dni')?.errors?.['pattern']">Debe ser numérico (7-8 dígitos).</span>
+              </div>
             </div>
 
+            <!-- Correo Electrónico -->
             <div class="col-12">
               <label for="correo" class="form-label">Correo Electrónico</label>
-              <input type="email" class="form-control" id="correo" formControlName="correo" required />
-              <div class="invalid-feedback">Correo electrónico requerido.</div>
+              <input type="email" class="form-control" id="correo" formControlName="correo" [ngClass]="{'is-invalid': isFieldInvalid('correo')}" />
+              <div class="invalid-feedback">
+                <span *ngIf="formularioRegistro.get('correo')?.errors?.['email']">Formato inválido.</span>
+              </div>
             </div>
 
+            <!-- Contraseña -->
             <div class="col-12">
               <label for="contraseña" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="contraseña" formControlName="contraseña" required />
-              <div class="invalid-feedback">Contraseña requerida.</div>
+              <input type="password" class="form-control" id="contraseña" formControlName="contraseña" [ngClass]="{'is-invalid': isFieldInvalid('contraseña')}" />
+              <div class="invalid-feedback">
+              </div>
             </div>
 
-            <!-- Si es un administrador, mostramos los campos específicos -->
+            <!-- Campos adicionales -->
             <div *ngIf="esAdmin" class="col-12">
               <label for="imagenAdmin" class="form-label">Imagen de Perfil (Admin)</label>
               <input type="file" id="imagenAdmin" (change)="onFileChange($event, 'imagenAdmin')" />
             </div>
 
-            <!-- Si es un paciente, mostramos el campo de obraSocial -->
             <div *ngIf="esPaciente" class="col-12">
               <label for="obraSocial" class="form-label">Obra Social</label>
-              <input type="text" class="form-control" id="obraSocial" formControlName="obraSocial" required />
+              <input type="text" class="form-control" id="obraSocial" formControlName="obraSocial" [ngClass]="{'is-invalid': isFieldInvalid('obraSocial')}" />
             </div>
 
-            <!-- Si es un paciente, mostramos los campos de imágenes adicionales -->
-            <div *ngIf="esPaciente" class="col-12">
-              <label for="imagenPaciente1" class="form-label">Imagen 1 (Paciente)</label>
-              <input type="file" id="imagenPaciente1" (change)="onFileChange($event, 'imagenPaciente1')" />
-            </div>
-            <div *ngIf="esPaciente" class="col-12">
-              <label for="imagenPaciente2" class="form-label">Imagen 2 (Paciente)</label>
-              <input type="file" id="imagenPaciente2" (change)="onFileChange($event, 'imagenPaciente2')" />
+            <!-- Captcha -->
+            <div class="my-3">
+              <re-captcha 
+                [siteKey]="'6Ld_5ocqAAAAAP98yHOMMVPnryTzMVD_UkQhFi2H'" 
+                formControlName="captcha"
+                (resolved)="onCaptchaResolved($event)">
+              </re-captcha>
+              <div class="text-warning" *ngIf="formularioRegistro.get('captcha')?.invalid && formularioRegistro.touched">
+                Por favor, valide el CAPTCHA antes de continuar.
+              </div>
             </div>
 
-            <div *ngIf="esEspecialista" class="col-12">
-              <label for="imagenEspecialista" class="form-label">Imagen de Perfil (Especialista)</label>
-              <input type="file" id="imagenEspecialista" (change)="onFileChange($event, 'imagenEspecialista')" />
-            </div>
+            <button class="w-100 btn btn-primary btn-lg" type="submit" [disabled]="formularioRegistro.invalid || !captchaValidado">
+              Registrar
+            </button>
           </div>
-
-          <app-captcha-propio (captchaValidado)="handleCaptchaValidado($event)"></app-captcha-propio>
-          <p *ngIf="!captchaValidado" class="text-warning">Por favor, valide el CAPTCHA antes de continuar.</p>
-
-          <button class="w-100 btn btn-primary btn-lg" type="submit" [disabled]="formularioRegistro.invalid || !captchaValidado">Registrar</button>
-
         </form>
       </div>
     </div>

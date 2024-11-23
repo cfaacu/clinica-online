@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AdminService } from './admin.service';
 import { Administrador } from '../models/administrador';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FirebaseError } from '@angular/fire/app';
 
 @Injectable({
   providedIn: 'root'
@@ -45,12 +46,11 @@ export class AuthService {
     }
   }
 
-  // Método para asignar el usuario y emitirlo a través del BehaviorSubject
   private setearUsuario(usuario: any) {
-    this.usuarioSubject.next(usuario); // Emitimos el nuevo valor del usuario
+    this.usuarioSubject.next(usuario); 
   }
 
-  // Métodos de registro para Paciente, Especialista y Administrador
+
   async registrarPaciente(paciente: Paciente) {
     try {
       const { user } = await createUserWithEmailAndPassword(this.auth, paciente.email, paciente.password);
@@ -69,16 +69,19 @@ export class AuthService {
         });
       }
     } catch (error) {
-      console.error("Error en el registro del paciente:", error);
+      // Aquí agregamos el type assertion
+      const firebaseError = error as FirebaseError;
+      const errorMessage = this.getError(firebaseError.code);  // Obtener el mensaje de error
+      console.error("Error en el registro del paciente:", firebaseError);
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Error en el registro del paciente',
+        title: errorMessage,
         showConfirmButton: true
       });
     }
   }
-
+  
   async registrarEspecialista(especialista: Especialista) {
     try {
       const { user } = await createUserWithEmailAndPassword(this.auth, especialista.email, especialista.password);
@@ -97,16 +100,19 @@ export class AuthService {
         });
       }
     } catch (error) {
-      console.error("Error en el registro del especialista:", error);
+      // Aquí agregamos el type assertion
+      const firebaseError = error as FirebaseError;
+      const errorMessage = this.getError(firebaseError.code);  // Obtener el mensaje de error
+      console.error("Error en el registro del especialista:", firebaseError);
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Error en el registro del especialista',
+        title: errorMessage,
         showConfirmButton: true
       });
     }
   }
-
+  
   async registrarAdministrador(admin: Administrador) {
     try {
       const { user } = await createUserWithEmailAndPassword(this.auth, admin.email, admin.password);
@@ -125,15 +131,19 @@ export class AuthService {
         });
       }
     } catch (error) {
-      console.error("Error en el registro del administrador:", error);
+      // Aquí agregamos el type assertion
+      const firebaseError = error as FirebaseError;
+      const errorMessage = this.getError(firebaseError.code);  // Obtener el mensaje de error
+      console.error("Error en el registro del administrador:", firebaseError);
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Error en el registro del administrador',
+        title: errorMessage,
         showConfirmButton: true
       });
     }
   }
+  
 
   // Restablece el usuario y accesos
   public setearUsuarioYAccesos() {

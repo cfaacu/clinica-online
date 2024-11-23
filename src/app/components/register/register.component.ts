@@ -7,12 +7,12 @@ import { TablaEspecialidadesComponent } from "./table/tabla-especialidades/tabla
 import { Paciente } from '../../models/paciente';
 import { Especialista } from '../../models/especialista';
 import { Administrador } from '../../models/administrador';
-import { CaptchaPropioComponent } from "./captcha-propio/captcha-propio.component";
+import { RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha-2";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TablaEspecialidadesComponent, CaptchaPropioComponent],
+  imports: [CommonModule, ReactiveFormsModule, TablaEspecialidadesComponent, RecaptchaModule,RecaptchaFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -39,14 +39,32 @@ export class RegisterComponent {
     private especialidadesService: EspecialidadesService
   ) {
     this.formularioRegistro = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      edad: ['', [Validators.required, Validators.min(22)]],
-      dni: ['', Validators.required],
-      correo: ['', [Validators.required, Validators.email]],
+      nombre: [
+        '', 
+        [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]
+      ],
+      apellido: [
+        '', 
+        [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]
+      ],
+      edad: [
+        '', 
+        [Validators.required, Validators.min(22)]
+      ],
+      dni: [
+        '', 
+        [Validators.required, Validators.pattern(/^\d{7,8}$/)]
+      ],
+      correo: [
+        '', 
+        [Validators.required, Validators.email]
+      ],
       contraseña: ['', Validators.required],
       obraSocial: [''],
+      captcha: ['', Validators.required],
     });
+    
+    
   }
 
   ngOnInit(): void {
@@ -55,9 +73,17 @@ export class RegisterComponent {
     console.log(this.authService.usuario);
   }
 
-  handleCaptchaValidado(valido: boolean) {
-    this.captchaValidado = valido;
+  onCaptchaResolved(token: string | null) {
+    if (token) {
+      this.formularioRegistro.get('captcha')?.setValue(token);
+      this.captchaValidado = true;
+    } else {
+      this.formularioRegistro.get('captcha')?.setValue('');
+      this.captchaValidado = false;
+    }
   }
+  
+  
   
   // Método para seleccionar tipo de usuario
   seleccionarTipo(tipo: string) {
@@ -82,11 +108,9 @@ export class RegisterComponent {
     this.especialidadesSeleccionadas = seleccionadas;
   }
 
-  // Método para manejar el cambio de archivo (captura de imágenes)
   onFileChange(event: any, campo: string) {
     const file = event.target.files[0];
     if (file) {
-      // Asignamos el archivo a la propiedad correspondiente dependiendo del campo
       if (campo === 'imagenPaciente1') {
         this.imagenPaciente1 = file;
       } else if (campo === 'imagenPaciente2') {
@@ -99,7 +123,12 @@ export class RegisterComponent {
     }
   }
 
-
+  isFieldInvalid(field: string): boolean {
+    const control = this.formularioRegistro.get(field);
+    return !!control?.invalid && (control.touched || control.dirty);
+  }
+  
+  
 
   async alEnviar() {
     if (this.formularioRegistro.invalid || !this.captchaValidado) {

@@ -1,85 +1,84 @@
-<body>
-    <div class="mx-auto" *ngIf="this.authService.usuarioLogeado">
-      <div class="mx-auto container-info table-responsive">
-        <h2 class="text-center">Mi Perfil</h2>
-        <table class="table-responsive mx-auto">
-          <thead>
-            <tr>
-              <th *ngIf="!this.authService.ITEM_ACCESOS.isPaciente"></th>
-              <th *ngIf="this.authService.ITEM_ACCESOS.isPaciente"></th>
-              <th *ngIf="this.authService.ITEM_ACCESOS.isPaciente"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td *ngIf="!this.authService.ITEM_ACCESOS.isPaciente">
-                <img
-                  [src]="this.authService.usuarioLogeado.imagenPerfil"
-                  alt="img-{{ this.authService.usuarioLogeado.dni }}"
-                />
-              </td>
-              <td *ngIf="this.authService.ITEM_ACCESOS.isPaciente">
-                <img
-                  [src]="this.authService.usuarioLogeado.urlsImagenes.imagen1Url"
-                  alt="img-{{ this.authService.usuarioLogeado.dni }}"
-                />
-              </td>
-              <td *ngIf="this.authService.ITEM_ACCESOS.isPaciente">
-                <img
-                  [src]="this.authService.usuarioLogeado.urlsImagenes.imagen1Url"
-                  alt="img-{{ this.authService.usuarioLogeado.dni }}"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <hr class="my-4" />
-        <h5><b>Nombre:</b> {{ this.authService.usuarioLogeado.nombre }}</h5>
-        <h5><b>Apellido:</b> {{ this.authService.usuarioLogeado.apellido }}</h5>
-        <h5><b>DNI:</b> {{ this.authService.usuarioLogeado.dni }}</h5>
-        <h5>
-          <b>Correo electrónico:</b> {{ this.authService.usuarioLogeado.email }}
-        </h5>
-        <h5 *ngIf="this.authService.ITEM_ACCESOS.isPaciente">
-          <b>Obra Social:</b> {{ this.authService.usuarioLogeado.obraSocial }}
-        </h5>
-        <h5 *ngIf="this.authService.ITEM_ACCESOS.isEspecialista">
-          <b>Especialidades:</b>
-        </h5>
-        <div
-          style="margin: 10px"
-          *ngFor="
-            let especialidad of this.authService.usuarioLogeado.especialidades
-          "
-        >
-          <li>{{ especialidad }}</li>
-        </div>
-        <h5
-          *ngIf="this.authService.ITEM_ACCESOS.isEspecialista"
-          [ngClass]="
-            this.authService.usuarioLogeado.cuentaHabilitada == true
-              ? 'text-success'
-              : 'text-danger'
-          "
-        >
-          {{
-            this.authService.usuarioLogeado.cuentaHabilitada == true
-              ? "CUENTA HABILITADA"
-              : "CUENTA INHABILITADA"
-          }}
-        </h5>
-      </div>
-      <br />
-      <app-mis-horarios
-        *ngIf="
-          authService.ITEM_ACCESOS.isEspecialista &&
-          authService.usuarioLogeado.cuentaHabilitada
+<div>
+  <div class="mx-auto" *ngIf="this.authService.usuarioLogeado">
+    <div class="mx-auto container-info table-responsive">
+      <h2 class="text-center">Mi Perfil</h2>
+      <table class="table-responsive mx-auto">
+        <thead>
+          <tr>
+            <th *ngIf="!this.authService.ITEM_ACCESOS.isPaciente"></th>
+            <th *ngIf="this.authService.ITEM_ACCESOS.isPaciente"></th>
+            <th *ngIf="this.authService.ITEM_ACCESOS.isPaciente"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td *ngIf="!this.authService.ITEM_ACCESOS.isPaciente">
+              <img
+                [src]="this.authService.usuarioLogeado.imagenPerfil"
+                alt="img-{{ this.authService.usuarioLogeado.dni }}"
+              />
+            </td>
+            <td *ngIf="this.authService.ITEM_ACCESOS.isPaciente">
+              <img
+                [src]="this.authService.usuarioLogeado.urlsImagenes.imagen1Url"
+                alt="img-{{ this.authService.usuarioLogeado.dni }}"
+              />
+            </td>
+            <td *ngIf="this.authService.ITEM_ACCESOS.isPaciente">
+              <img
+                [src]="this.authService.usuarioLogeado.urlsImagenes.imagen1Url"
+                alt="img-{{ this.authService.usuarioLogeado.dni }}"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr class="my-4" />
+      <h5><b>Nombre:</b> {{ this.authService.usuarioLogeado.nombre }}</h5>
+      <h5><b>Apellido:</b> {{ this.authService.usuarioLogeado.apellido }}</h5>
+      <h5><b>DNI:</b> {{ this.authService.usuarioLogeado.dni }}</h5>
+      <h5>
+        <b>Correo electrónico:</b> {{ this.authService.usuarioLogeado.email }}
+      </h5>
+      <h5 *ngIf="this.authService.ITEM_ACCESOS.isPaciente">
+        <b>Obra Social:</b> {{ this.authService.usuarioLogeado.obraSocial }}
+      </h5>
+      <h5 *ngIf="this.authService.ITEM_ACCESOS.isEspecialista">
+        <b>Especialidades:</b>
+      </h5>
+      <div
+        style="margin: 10px"
+        *ngFor="
+          let especialidad of this.authService.usuarioLogeado.especialidades
         "
-        [especialistaHorarios]="this.authService.usuarioLogeado"
-      ></app-mis-horarios>
-      <app-historia-clinica
-        *ngIf="authService.ITEM_ACCESOS.isPaciente"
-      ></app-historia-clinica>
+      >
+        <li>{{ especialidad }}</li>
+      </div>
+      <h5
+        *ngIf="this.authService.ITEM_ACCESOS.isEspecialista"
+        [ngClass]="
+          this.authService.usuarioLogeado.cuentaHabilitada == true
+            ? 'text-success'
+            : 'text-danger'
+        "
+      >
+        {{
+          this.authService.usuarioLogeado.cuentaHabilitada == true
+            ? "CUENTA HABILITADA"
+            : "CUENTA INHABILITADA"
+        }}
+      </h5>
     </div>
-  </body>
-  
+    <br />
+    <app-mis-horarios
+      *ngIf="
+        authService.ITEM_ACCESOS.isEspecialista &&
+        authService.usuarioLogeado.cuentaHabilitada
+      "
+      [especialistaHorarios]="this.authService.usuarioLogeado"
+    ></app-mis-horarios>
+    <app-historia-clinica
+      *ngIf="authService.ITEM_ACCESOS.isPaciente"
+    ></app-historia-clinica>
+  </div>
+</div>

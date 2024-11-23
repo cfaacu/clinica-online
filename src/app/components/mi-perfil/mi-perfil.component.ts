@@ -5,6 +5,7 @@ import { MisHorariosComponent } from "./mis-horarios/mis-horarios.component";
 import { HistoriaClinicaComponent } from "./historia-clinica/historia-clinica.component";
 import { animate, style, transition, trigger } from '@angular/animations';
 
+
 @Component({
   selector: 'app-mi-perfil',
   standalone: true,
