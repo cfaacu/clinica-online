@@ -45,7 +45,7 @@
               <td>{{ turno.fecha }} - {{ turno.hora }}</td>
               <td>{{ turno.paciente.nombre }} {{ turno.paciente.apellido }}</td>
               <td>{{ turno.especialista.nombre }} {{ turno.especialista.apellido }}</td>
-              <td>{{ turno.especialidad.descripcion }}</td>
+              <td>{{ turno.especialidad.nombre }}</td>
               <td
                 [ngClass]="{
                   'text-primary': turno.estado === 'ACEPTADO',
@@ -68,6 +68,11 @@
       <div *ngIf="turnoSeleccionado && mostrarAltaHistoria">
         <app-historia-clinica-alta *ngIf="turnoSeleccionado.estado === 'FINALIZADO'" [turno]="turnoSeleccionado"></app-historia-clinica-alta>
       </div>
+
+      <app-historia-clinica-detalle
+        *ngIf="turnoSeleccionado && turnoSeleccionado.historiaClinica != null"
+        [turnoDetalle]="turnoSeleccionado"
+      ></app-historia-clinica-detalle>
     </div>
   </body>
   

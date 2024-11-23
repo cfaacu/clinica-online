@@ -60,12 +60,6 @@ export class HistoriaClinicaService {
       valor2: historia.valor2,
       clave3: historia.clave3,
       valor3: historia.valor3,
-      clave4: historia.clave4,
-      valor4: historia.valor4,
-      clave5: historia.clave5,
-      valor5: historia.valor5,
-      clave6: historia.clave6,
-      valor6: historia.valor6
     };
 
     // Usamos updateDoc con el objeto plano

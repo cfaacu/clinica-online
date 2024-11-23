@@ -28,7 +28,6 @@ export class EspecialistaService {
       ...especialista,
       imagenPerfil
     };
-    delete especialistaData.imagenPerfil;
 
 
     await setDoc(docRef, especialistaData);

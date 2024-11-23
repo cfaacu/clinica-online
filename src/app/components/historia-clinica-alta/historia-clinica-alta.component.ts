@@ -30,18 +30,12 @@ export class HistoriaClinicaAltaComponent {
       Peso: ['', Validators.required],
       Temperatura: ['', [Validators.required, Validators.min(34), Validators.max(45)]],
       Presion: ['', [Validators.required]],
-      Clave1: ['', Validators.required],
-      Valor1: ['', Validators.required],
-      Clave2: ['', Validators.required],
-      Valor2: ['', Validators.required],
+      Clave1: [''],
+      Valor1: [''],
+      Clave2: [''],
+      Valor2: [''],
       Clave3: [''],
       Valor3: [''],
-      Clave4: [''],
-      Valor4: [''],
-      Clave5: [''],
-      Valor5: [''],
-      Clave6: [''],
-      Valor6: [''],
     });
   }
 
@@ -68,12 +62,6 @@ export class HistoriaClinicaAltaComponent {
     historia.valor2 = this.formulario.controls['Valor2'].value;
     historia.clave3 = this.formulario.controls['Clave3'].value;
     historia.valor3 = this.formulario.controls['Valor3'].value;
-    historia.clave4 = this.formulario.controls['Clave4'].value;
-    historia.valor4 = this.formulario.controls['Valor4'].value;
-    historia.clave5 = this.formulario.controls['Clave5'].value;
-    historia.valor5 = this.formulario.controls['Valor5'].value;
-    historia.clave6 = this.formulario.controls['Clave6'].value;
-    historia.valor6 = this.formulario.controls['Valor6'].value;
   
     this.turnoSvc.updateTurnoHistoriaClinica(historia, this.turno.id).then(() => {
     }).catch((error) => {

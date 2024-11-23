@@ -1,84 +1,91 @@
 <div class="col-12 container" id="pdfTable" #pdfTable>
-    <h2>
-      <img
-        src="https://i.postimg.cc/L8DqTVRV/2771402.png"
-        style="height: 50px; width: 50px; margin-right: 10px"
-      />
-      CLÍNICA ONLINE
-    </h2>
-    <hr class="my-4" />
-    <h3 class="text-danger">Turnos e Historia Clínica</h3>
-    <div class="row">
-      <h4>Búsqueda por Especialidad o Especialista</h4>
-      <div class="form-group col-md-6">
-        <input class="form-control" [(ngModel)]="filter" ng-blur="ngBlur()" />
-      </div>
-    </div>
-    <div class="col-md-12 mx-auto table-responsive mt-3">
-      <table class="table table-striped table-bordered fixed">
-        <tr class="tr-dark">
-          <th>Fecha</th>
-          <th>Especialidad</th>
-          <th>Especialista</th>
-          <th>Reseña</th>
-          <th>Historia Clínica</th>
-        </tr>
-        <tr
-          *ngFor="let turno of listaHistoriaClinica | filterPaciente: filter"
-          appAgranda
-          class="tr-data"
-        >
-          <td>{{ turno.fecha }} - {{ turno.hora }}</td>
-          <td>{{ turno.especialidad.descripcion }}</td>
-          <td>
-            {{ turno.especialista.nombre }} {{ turno.especialista.apellido }}
-          </td>
-          <td>
-            <div *ngIf="turno.comentariosPaciente != ''">
-              {{ turno.comentariosPaciente }}
-            </div>
-            <div *ngIf="turno.comentariosEspecialista != ''">
-              {{ turno.comentariosEspecialista }}
-            </div>
-            <div *ngIf="turno.comentariosAdmin != ''">
-              {{ turno.comentariosAdmin }}
-            </div>
-          </td>
-          <td>
-            <div class="mx-auto" *ngIf="turno.historiaClinica != ''">
-              <table class="table table-striped table-bordered">
-                <tr class="table-ligth">
-                  <th>Altura</th>
-                  <th>Peso</th>
-                  <th>Temperatura</th>
-                  <th>{{ turno.historiaClinica.clave1 }}</th>
-                  <th>{{ turno.historiaClinica.clave2 }}</th>
-                  <th>{{ turno.historiaClinica.clave3 }}</th>
-                  <th>{{ turno.historiaClinica.clave4 }}</th>
-                  <th>{{ turno.historiaClinica.clave5 }}</th>
-                  <th>{{ turno.historiaClinica.clave6 }}</th>
-                </tr>
-                <tr>
-                  <td>{{ turno.historiaClinica.altura }}</td>
-                  <td>{{ turno.historiaClinica.peso }}</td>
-                  <td>{{ turno.historiaClinica.temperatura }}</td>
-                  <td>{{ turno.historiaClinica.valor1 }}</td>
-                  <td>{{ turno.historiaClinica.valor2 }}</td>
-                  <td>{{ turno.historiaClinica.valor3 }}</td>
-                  <td>{{ turno.historiaClinica.valor4 }}</td>
-                  <td>{{ turno.historiaClinica.valor5 }}</td>
-                  <td>
-                    {{ turno.historiaClinica.valor6 == true ? "SI" : "NO" }}
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="mx-auto" *ngIf="turno.historiaClinica == ''">
-              NO POSEE
-            </div>
-          </td>
-        </tr>
-      </table>
+  <h2>
+    <img
+      src="https://i.postimg.cc/L8DqTVRV/2771402.png"
+      style="height: 50px; width: 50px; margin-right: 10px"
+    />
+    CLÍNICA ONLINE
+  </h2>
+  <hr class="my-4" />
+  
+  <!-- Nuevos botones de descarga de PDF -->
+  <div class="mb-3">
+    <button class="btn btn-primary me-2" (click)="generarPDF()">
+      Descargar Historia Clínica
+    </button>
+  </div>
+
+  <h3 class="text-danger">Turnos e Historia Clínica</h3>
+  <div class="row">
+    <h4>Búsqueda por Especialidad o Especialista</h4>
+    <div class="form-group col-md-6">
+      <input class="form-control" [(ngModel)]="filter" ng-blur="ngBlur()" />
     </div>
   </div>
-  
+  <div class="col-md-12 mx-auto table-responsive mt-3">
+    <table class="table table-striped table-bordered fixed">
+      <tr class="tr-dark">
+        <th>Fecha</th>
+        <th>Especialidad</th>
+        <th>Especialista</th>
+        <th>Reseña</th>
+        <th>Historia Clínica</th>
+      </tr>
+      <tr
+        *ngFor="let turno of listaHistoriaClinica | filterPaciente: filter"
+        appAgranda
+        class="tr-data"
+      >
+        <td>{{ turno.fecha }} - {{ turno.hora }}</td>
+        <td>{{ turno.especialidad.nombre }}</td>
+        <td>
+          {{ turno.especialista.nombre }} {{ turno.especialista.apellido }}
+        </td>
+        <td>
+          <div *ngIf="turno.comentariosPaciente != ''">
+            {{ turno.comentariosPaciente }}
+          </div>
+          <div *ngIf="turno.comentariosEspecialista != ''">
+            {{ turno.comentariosEspecialista }}
+          </div>
+          <div *ngIf="turno.comentariosAdmin != ''">
+            {{ turno.comentariosAdmin }}
+          </div>
+        </td>
+        <td>
+          <div class="mx-auto" *ngIf="turno.historiaClinica != ''">
+            <table class="table table-striped table-bordered">
+              <tr class="table-ligth">
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>Temperatura</th>
+                <th>{{ turno.historiaClinica.clave1 }}</th>
+                <th>{{ turno.historiaClinica.clave2 }}</th>
+                <th>{{ turno.historiaClinica.clave3 }}</th>
+                <th>{{ turno.historiaClinica.clave4 }}</th>
+                <th>{{ turno.historiaClinica.clave5 }}</th>
+                <th>{{ turno.historiaClinica.clave6 }}</th>
+              </tr>
+              <tr>
+                <td>{{ turno.historiaClinica.altura }}</td>
+                <td>{{ turno.historiaClinica.peso }}</td>
+                <td>{{ turno.historiaClinica.temperatura }}</td>
+                <td>{{ turno.historiaClinica.valor1 }}</td>
+                <td>{{ turno.historiaClinica.valor2 }}</td>
+                <td>{{ turno.historiaClinica.valor3 }}</td>
+                <td>{{ turno.historiaClinica.valor4 }}</td>
+                <td>{{ turno.historiaClinica.valor5 }}</td>
+                <td>
+                  {{ turno.historiaClinica.valor6 == true ? "SI" : "NO" }}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="mx-auto" *ngIf="turno.historiaClinica == ''">
+            NO POSEE
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

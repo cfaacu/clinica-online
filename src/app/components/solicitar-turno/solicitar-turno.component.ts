@@ -76,7 +76,7 @@ export class SolicitarTurnoComponent {
     this.setearTurno();
     this.spinnerShow();
     this.cargarPacientes();
-    this.cargarEspecialidades();
+    this.cargarEspecialistas();
     setTimeout(() => {
       this.spinnerHide();
     }, 2000);
@@ -101,13 +101,7 @@ export class SolicitarTurnoComponent {
   cargarEspecialistas() {
     this.especialistaService.getAllTwo().subscribe({
       next: (especialistas) => {
-        if (this.especialidadSeleccionado.nombre) {
-          this.especialistas = especialistas.filter((especialista) => {
-            return especialista.especialidades?.includes(this.especialidadSeleccionado.nombre);
-          });
-        } else {
-          this.especialistas = especialistas;
-        }
+        this.especialistas = especialistas;
       },
       error: (error) => {
         console.error('Error al obtener los especialistas:', error);
@@ -119,9 +113,13 @@ export class SolicitarTurnoComponent {
     this.especialidades = [];
     this.especialidadService
       .getAllEsp()
-      .subscribe((x) => (console.log("asddd",x),this.especialidades = x));
-
+      .subscribe((especialidades) => {
+        this.especialidades = especialidades.filter((especialidad) =>{
+          return this.especialistaSeleccionado.especialidades.includes(especialidad.nombre);
+        })
+      });
   }
+
   cargarPacientes() {
     this.suscripciones.push(
       this.pacienteService.getAllTwo().subscribe((snapshot) => {
@@ -146,7 +144,7 @@ export class SolicitarTurnoComponent {
 
     //ASIGNO
     this.especialistaSeleccionado = item;
-    this.cargarTurnos();
+    this.cargarEspecialidades();
   }
 
   asignarEspecialidad(item: any) {
@@ -157,7 +155,8 @@ export class SolicitarTurnoComponent {
 
     //ASIGNO
     this.especialidadSeleccionado = item;
-    this.cargarEspecialistas();
+
+    this.cargarTurnos();
   }
 
   asignarPaciente(item: any) {
@@ -178,11 +177,12 @@ export class SolicitarTurnoComponent {
     );
 
     let fechaElegidaStr =
-      this.fechaElegida.row_date.year +
-      '-' +
-      this.fechaElegida.row_date.month +
-      '-' +
-      this.fechaElegida.row_date.day;
+    this.fechaElegida.row_date.year +
+    '-' +
+    this.fechaElegida.row_date.month +
+    '-' +
+    this.fechaElegida.row_date.day;
+
 
     this.filtrarHorariosTurnos(fechaElegidaStr);
   }
@@ -275,8 +275,8 @@ export class SolicitarTurnoComponent {
   
     for (var i = 0; i <= date_range; i++) {
       var getDate = current_date.getDate() < 10 ? '0' + current_date.getDate() : current_date.getDate();
-      var getMonth = current_date.getMonth() < 9 ? '0' + (current_date.getMonth() + 1) : current_date.getMonth().toString();
-  
+      var getMonth = current_date.getMonth() < 9 ? '0' + (current_date.getMonth() + 1) : (current_date.getMonth()+1).toString();
+      
       var row_date;
       var hours;
   
@@ -284,7 +284,7 @@ export class SolicitarTurnoComponent {
         hours = hoursSat;
         row_date = {
           day: getDate,
-          month: getMonth,
+          month: getMonth ,
           year: current_date.getFullYear(),
           hours
         };
@@ -292,7 +292,7 @@ export class SolicitarTurnoComponent {
         hours = hoursWeek;
         row_date = {
           day: getDate,
-          month: getMonth,
+          month: getMonth ,
           year: current_date.getFullYear(),
           hours
         };
@@ -302,7 +302,7 @@ export class SolicitarTurnoComponent {
         weekDay: weekday[current_date.getDay()],
         date: getDate,
         month: months[current_date.getMonth()],
-        monthName: this.datePipe.transform(current_date, 'MMMM')
+        monthName: this.datePipe.transform(current_date, 'yyyy-MM-dd')
       };
   
       const hasValidHours = this.hasValidHorario(fmt_date.weekDay);
@@ -553,6 +553,20 @@ export class SolicitarTurnoComponent {
     
     console.log("Turnos disponibles finales: ", this.turnosDisponibles);
   }
+
+  convertirHoraAMPM(hora: string): string {
+    const [hour, minute] = hora.split(':');
+    let formattedHour = parseInt(hour);
+    let ampm = formattedHour >= 12 ? 'PM' : 'AM';
+    
+    // Convertir hora de 24 a 12
+    formattedHour = formattedHour % 12;
+    formattedHour = formattedHour ? formattedHour : 12;  // El 0 debe ser 12
+    const formattedMinute = minute;
+    
+    return `${formattedHour}:${formattedMinute} ${ampm}`;
+  }
+  
   
   
 

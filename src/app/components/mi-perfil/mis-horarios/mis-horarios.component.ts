@@ -238,9 +238,6 @@ export class MisHorariosComponent {
       setTimeout(() => {
         this.spinnerHide();
         this.successOperation = true;
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
       }, 2000);
     });
   }

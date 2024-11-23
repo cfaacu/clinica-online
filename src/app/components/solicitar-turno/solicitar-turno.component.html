@@ -9,20 +9,21 @@
       </app-paciente-lista>
     </div>
   </div>
+
   
-  <div class="row container-listas" *ngIf="(!authSvc.ITEM_ACCESOS.isAdmin || pacienteSeleccionado) && !this.spinner">
-    <div class="mx-auto">
-      <h5 class="text-center">Seleccione una Especialidad</h5>
-      <app-especialidad-lista [lista]="this.especialidades" (especialidadSeleccionado)="asignarEspecialidad($event)">
-      </app-especialidad-lista>
-    </div>
-  </div>
-  
-  <div *ngIf="this.especialidadSeleccionado">
+  <div *ngIf="(!authSvc.ITEM_ACCESOS.isAdmin || pacienteSeleccionado) && !this.spinner">
     <div class="mx-auto">
       <h5 class="text-center">Seleccione un Especialista</h5>
       <app-especialista-lista [lista]="this.especialistas" (especialistaSeleccionado)="asignarEspecialista($event)">
       </app-especialista-lista>
+    </div>
+  </div>
+
+  <div class="row container-listas" *ngIf="this.especialistaSeleccionado">
+    <div class="mx-auto">
+      <h5 class="text-center">Seleccione una Especialidad</h5>
+      <app-especialidad-lista [lista]="this.especialidades" (especialidadSeleccionado)="asignarEspecialidad($event)">
+      </app-especialidad-lista>
     </div>
   </div>
 
@@ -36,22 +37,17 @@
       <table class="table table-striped table-bordered table-responsive mx-auto">
         <thead>
           <tr>
-            <th *ngFor="let fecha of turnosDisponibles"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
             <td *ngFor="let fecha of turnosDisponibles">
               <button
                 class="btn btn-dark mb-2"
-                style="width: 150px"
+                style="width: 110px; height:110px"
                 (click)="mostrarHorarios(fecha)"
               >
-                {{ fecha.fmt_date.date }} de {{ fecha.fmt_date.monthName }}
+                {{fecha.fmt_date.year}}  {{ fecha.fmt_date.monthName }}
               </button>
             </td>
           </tr>
-        </tbody>
+        </thead>
       </table>
     </div>
   </div>
@@ -76,10 +72,11 @@
               <td *ngFor="let hora of fechaElegida.row_date.hours">
                 <button
                   class="btn btn-success mb-2"
+                  style="width: 80px; height:80px"
                   (click)="fechaTurnoElegido(hora)"
                   *ngIf="hora"
                 >
-                  {{ hora }}
+                  {{ convertirHoraAMPM(hora) }}
                 </button>
               </td>
             </tr>

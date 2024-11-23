@@ -30,8 +30,7 @@
             <tr
               class="tr-data"
               *ngFor="
-                let turno of turnosPaciente | filterPaciente: filter;
-                index as i
+                let turno of turnosPaciente | filterPaciente: filter; index as i
               "
               (click)="asignarTurno(turno)"
             >

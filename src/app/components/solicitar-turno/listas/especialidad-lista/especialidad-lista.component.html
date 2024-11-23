@@ -1,22 +1,22 @@
-<div class="container">
-    <div class="col-md-12 mx-auto table-responsive">
-      <button *ngFor="let item of lista" (click)="enviarEspecialidad(item)">
-        <p>{{ item.nombre }}</p>
-      </button>
-      <!-- <table class="table table-striped table-bordered table-responsive mx-auto">
+  <div class="container">
+    <div class="col-md-12 mx-auto table-responsive" *ngIf="lista.length > 0">
+      <table class="table table-striped table-bordered table-responsive mx-auto">
         <thead>
           <tr>
-            <th>Especialidades</th>
+            <th *ngFor="let item of lista" (click)="enviarEspecialidad(item)">
+              {{ item.nombre }}
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td *ngFor="let item of lista" (click)="enviarEspecialidad(item)">
-              {{ item.nombre }} 
+              <div>
+                <img src="https://i.postimg.cc/x8yKzgBp/doctor.png" appNotImage />
+              </div>
             </td>
           </tr>
         </tbody>
-      </table> -->
+      </table>
     </div>
   </div>
-  

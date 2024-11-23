@@ -119,11 +119,9 @@ export class TurnoService {
   updateTurnoHistoriaClinica(historia: HistoriaClinica, turnoId: string) {
     const turnoRef = doc(this.firestore, `${this.dbPath}/${turnoId}`);
     
-    // Limpiar el objeto historia para que Firebase solo reciba datos válidos
     const historiaData = { ...historia };
-    
-    // Eliminar propiedades no necesarias, como el 'id' o cualquier otra propiedad
-    delete historiaData.id; // Si 'id' no es necesario en la base de datos
+ 
+    delete historiaData.id; 
     
     return updateDoc(turnoRef, { historiaClinica: historiaData });
   }
@@ -142,6 +140,27 @@ export class TurnoService {
         })
       )
     );
+  }
+
+  async getTurnosByPaciente(id: string) {
+    // Referencia a la colección de turnos
+    const turnosRef = collection(this.firestore, this.dbPath);
+
+    // Crear una consulta para filtrar los turnos por el id del paciente
+    const q = query(turnosRef, where('paciente.id', '==', id)); // Filtramos por paciente.id
+
+    try {
+      // Ejecutamos la consulta
+      const querySnapshot = await getDocs(q);
+
+      // Mapear los resultados de los turnos
+      const turnos = querySnapshot.docs.map(doc => doc.data());
+      return turnos;
+
+    } catch (error) {
+      console.error("Error al obtener los turnos:", error);
+      throw new Error('Error al obtener los turnos del paciente.');
+    }
   }
 
   // Obtener turnos para el día

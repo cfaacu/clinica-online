@@ -1,23 +1,42 @@
 <div class="container mt-5">
-    <h2>Gestión de Usuarios</h2>
-  
-    <!-- Botón para redirigir al formulario de registro para crear un nuevo Administrador -->
-    <button class="btn btn-primary mb-3" (click)="redirectToRegister()">Agregar Administrador</button>
-  
-    <!-- Lista de Especialistas -->
-    <div *ngIf="isLoading">Cargando...</div>
-    <div *ngIf="!isLoading && usuarios.length === 0">No hay usuarios registrados.</div>
-  
-    <div *ngIf="!isLoading">
-      <ul>
-        <li *ngFor="let usuario of usuarios">
-          <div>{{ usuario.nombre }} {{ usuario.apellido }}</div>
-          <div>
-            <button (click)="cambiarEstado(usuario, true)" class="btn btn-success">Habilitar</button>
-            <button (click)="cambiarEstado(usuario, false)" class="btn btn-danger">Inhabilitar</button>
+  <h2>Gestión de Usuarios</h2>
+
+  <!-- Botón para redirigir al formulario de registro para crear un nuevo Administrador -->
+  <button class="btn btn-primary mb-3" (click)="redirectToRegister()">Agregar Usuarios</button>
+
+  <!-- Lista de Usuarios -->
+  <div *ngIf="isLoading">Cargando...</div>
+  <div *ngIf="!isLoading && usuarios.length === 0">No hay usuarios registrados.</div>
+
+  <div *ngIf="!isLoading" class="row">
+    <div class="col-md-4" *ngFor="let usuario of usuarios">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ usuario.nombre }} {{ usuario.apellido }}</h5>
+
+          <p class="card-text">
+            <span *ngIf="usuario.tipo === 'especialista'">Especialidad: {{ usuario.especialidades }}</span>
+            <span *ngIf="usuario.tipo === 'paciente'">Tipo: Paciente</span>
+            <span *ngIf="usuario.tipo === 'paciente'"> ObraSocial: {{usuario.obraSocial}}</span>
+            <span *ngIf="usuario.tipo === 'administrador'">Tipo: Administrador</span>
+          </p>
+
+          <!-- Solo mostrar la opción de descargar turnos si el usuario es un administrador -->
+          <button *ngIf="usuario.tipo === 'paciente'" class="btn btn-info" (click)="descargarTurnos(usuario)">
+            Descargar Turnos
+          </button>
+
+          <!-- Mostrar botones de habilitar/inhabilitar solo para Especialistas -->
+          <div *ngIf="usuario.tipo === 'especialista'">
+            <button *ngIf="!usuario.cuentaHabilitada" 
+                    (click)="cambiarEstado(usuario, true)" 
+                    class="btn btn-success">Habilitar</button>
+            <button *ngIf="usuario.cuentaHabilitada" 
+                    (click)="cambiarEstado(usuario, false)" 
+                    class="btn btn-danger">Inhabilitar</button>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
-  
+</div>

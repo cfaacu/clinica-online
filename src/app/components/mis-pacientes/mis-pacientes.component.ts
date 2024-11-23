@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-mis-pacientes',
   standalone: true,
-  imports: [CommonModule,HistoriaClinicaDetalleComponent],
+  imports: [CommonModule],
   templateUrl: './mis-pacientes.component.html',
   styleUrl: './mis-pacientes.component.css'
 })
@@ -20,6 +20,7 @@ export class MisPacientesComponent {
   turnoSeleccionado!: any;
   pacienteSeleccionado!: any;
   turnosPacientesAtendidos: any[] = [];
+  resenaSeleccionada: string | null = null;
 
   constructor(public turnoSvc: TurnoService, private authSvc: AuthService) {
 
@@ -97,6 +98,19 @@ export class MisPacientesComponent {
 
   ngOnInit(): void {
   }
+
+  seleccionarPaciente(paciente: any) {
+    this.resenaSeleccionada = null;
+    this.pacienteSeleccionado = paciente;
+    this.turnosPacienteSeleccionado = this.turnosEspecialista.filter(
+      (turno) => turno.paciente.email === paciente.email
+    );
+  }
+  
+  verResena(turno: any) {
+    this.resenaSeleccionada = turno.comentariosEspecialista || 'No hay comentarios disponibles.';
+  }
+  
 
   enviarTurno(turno: any) {
     this.turnoSeleccionado = turno;

@@ -20,6 +20,9 @@
           <h3>
             <b>Temperatura: </b> {{ turnoDetalle.historiaClinica.temperatura }}
           </h3>
+          <h3>
+            <b>Presion: </b> {{ turnoDetalle.historiaClinica.presion }}
+          </h3>
           <h3
             style="color: rgb(15, 10, 110); margin-top: 20px"
             class="subtitulo"
@@ -37,18 +40,6 @@
           <h3 *ngIf="turnoDetalle.historiaClinica.clave3 != ''">
             <b>{{ turnoDetalle.historiaClinica.clave3 }}: </b
             >{{ turnoDetalle.historiaClinica.valor3 }}
-          </h3>
-          <h3 *ngIf="turnoDetalle.historiaClinica.clave4 != ''">
-            <b>{{ turnoDetalle.historiaClinica.clave4 }}: </b
-            >{{ turnoDetalle.historiaClinica.valor4 }}
-          </h3>
-          <h3 *ngIf="turnoDetalle.historiaClinica.clave5 != ''">
-            <b>{{ turnoDetalle.historiaClinica.clave5 }}: </b
-            >{{ turnoDetalle.historiaClinica.valor5 }}
-          </h3>
-          <h3 *ngIf="turnoDetalle.historiaClinica.clave6 != ''">
-            <b>{{ turnoDetalle.historiaClinica.clave6 }}: </b
-            >{{ turnoDetalle.historiaClinica.valor6 == true ? "SI" : "NO" }}
           </h3>
         </div>
       </div>

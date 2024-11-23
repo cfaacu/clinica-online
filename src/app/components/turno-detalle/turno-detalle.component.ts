@@ -31,6 +31,7 @@ export class TurnoDetalleComponent {
   noMostrarEnviarComentarioEsp: boolean = false;
   noMostrarEnviarComentarioPac: boolean = false;
   noMostrarEnviarComentarioAdmin: boolean = false;
+  comentarioEspecialistaVisible: boolean = false;
 
   estadoAccion: string = '';
 
@@ -64,6 +65,11 @@ export class TurnoDetalleComponent {
   aceptar() {
     this.turnoDetalle.estado = this.aceptado;
     this.estadoAccion = this.aceptado;
+    this.turnoSvc.updateTurnoEstado(this.turnoDetalle).then(() => {
+      console.log("Turno aceptado y actualizado en la base de datos.");
+    }).catch(error => {
+      console.error("Error al actualizar el estado del turno: ", error);
+    });
   }
 
   finalizar() {
@@ -102,5 +108,9 @@ export class TurnoDetalleComponent {
     // else if (this.authSvc.ITEM_ACCESOS.isAdmin) {
     //   this.router.navigate(['/administracion/turnos']);
     // }
+  }
+
+  toggleComentarioEspecialista() {
+    this.comentarioEspecialistaVisible = !this.comentarioEspecialistaVisible;
   }
 }

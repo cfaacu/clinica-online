@@ -1,71 +1,71 @@
-<body>
-    <div class="container-general mx-auto">
-      <div class="mx-auto">
-        <h2>MIS PACIENTES</h2>
-        <div *ngIf="pacientesEspecialista.length === 0" class="alert alert-warning">
-            <strong>No se han encontrado pacientes.</strong>
+<div class="container-general mx-auto">
+  <div>
+    <h2>MIS PACIENTES</h2>
+
+    <!-- Mensaje si no hay pacientes -->
+    <div *ngIf="pacientesEspecialista.length === 0" class="alert alert-warning">
+      <strong>No se han encontrado pacientes.</strong>
+    </div>
+
+    <!-- Lista de pacientes -->
+    <div class="row">
+      <div
+        *ngFor="let paciente of pacientesEspecialista"
+        class="col-md-4 col-sm-6 mb-3"
+      >
+        <div class="card paciente-card" (click)="seleccionarPaciente(paciente)">
+          <img
+            [src]="paciente.urlFotos.imagen1Url"
+            class="card-img-top rounded-circle"
+            alt="Foto de paciente"
+          />
+          <div class="card-body text-center">
+            <h5 class="card-title">
+              {{ paciente.nombre }} {{ paciente.apellido }}
+            </h5>
+            <button class="btn btn-outline-primary fav-button">
+              <i class="fa fa-star"></i> Ver Mas
+            </button>
           </div>
-        <div class="col-md-12 mx-auto table-responsive">
-          <table class="table table-responsive mx-auto">
-            <thead>
-              <tr>
-                <th *ngFor="let item of pacientesEspecialista; index as i">
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td *ngFor="let item of pacientesEspecialista; index as i">
-                  <div class="card mb-3 card-paciente" style="max-width: 700px">
-                    <div class="row g-0">
-                      <div class="col-md-4">
-                        <img
-                          [src]="item.urlFotos.imagen1Url"
-                          appNotImage
-                          class="img-fluid rounded-start"
-                          alt="..."
-                        />
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">
-                            {{ item.apellido }}, {{ item.nombre }}
-                          </h5>
-                          <div class="card-text" style="width: 100%">
-                            <ul class="list-group list-group-flush">
-                              <div
-                                *ngFor="
-                                  let turno of item.ultimosTresTurnos;
-                                  index as i
-                                "
-                                (click)="enviarTurno(turno)"
-                              >
-                                <li
-                                  class="list-group-item text-list-turno"
-                                  *ngIf="turno != ''"
-                                >
-                                  {{ turno.fecha }} - {{ turno.hora }} -
-                                  <b>{{ turno.especialidad.descripcion }}</b>
-                                </li>
-                              </div>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- HISTORIA CLINICA DEL TURNO SELECCIONADO 
-         MODIFICAR QUE SI NO HAY PACIENTES LO MUESTRE-->
-        <div *ngIf="turnoSeleccionado">
-          <app-historia-clinica-detalle [turnoDetalle]="turnoSeleccionado">
-          </app-historia-clinica-detalle>
         </div>
       </div>
     </div>
-  </body>
-  
+
+  <!-- Lista de turnos del paciente seleccionado -->
+  <div *ngIf="turnosPacienteSeleccionado.length > 0">
+    <h3 class="mt-4">Turnos de {{ pacienteSeleccionado?.nombre }}</h3>
+    <ul class="list-group">
+      <li
+        class="list-group-item d-flex align-items-center justify-content-between"
+        *ngFor="let turno of turnosPacienteSeleccionado"
+      >
+        <span>
+          {{ turno.fecha }} - {{ turno.hora }} - {{ turno.especialidad.nombre }}
+        </span>
+        <button
+          class="btn btn-outline-primary fav-button"
+          (click)="verResena(turno)"
+        >
+          <i class="fa fa-eye"></i> Ver Reseña
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contenedor para la reseña -->
+  <div *ngIf="resenaSeleccionada" class="mt-4">
+    <h4>Reseña del Turno</h4>
+    <p class="alert alert-info">
+      {{ resenaSeleccionada }}
+    </p>
+    <button
+      class="btn btn-secondary"
+      (click)="resenaSeleccionada = null"
+    >
+      Cerrar
+    </button>
+  </div>
+
+
+  </div>
+</div>

@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { FilterEspecialistaPipe } from "../../pipes/filter-especialista.pipe";
 import { TurnoDetalleComponent } from "../turno-detalle/turno-detalle.component";
 import { HistoriaClinicaAltaComponent } from "../historia-clinica-alta/historia-clinica-alta.component";
+import { HistoriaClinicaDetalleComponent } from '../historia-clinica-detalle/historia-clinica-detalle.component';
 
 @Component({
   selector: 'app-mis-turnos-especialista',
   standalone: true,
-  imports: [CommonModule, FormsModule, FilterEspecialistaPipe, TurnoDetalleComponent, HistoriaClinicaAltaComponent],
+  imports: [CommonModule, FormsModule, FilterEspecialistaPipe, TurnoDetalleComponent, HistoriaClinicaAltaComponent,HistoriaClinicaDetalleComponent],
   templateUrl: './mis-turnos-especialista.component.html',
   styleUrl: './mis-turnos-especialista.component.css'
 })
