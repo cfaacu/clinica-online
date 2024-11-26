@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
 import { ExcelExportService } from '../../../services/excel-export.service';
 import { CommonModule } from '@angular/common';
+import { SelectedRowDirective } from '../../../directives/selected-row.directive';
 
 @Component({
   selector: 'app-log-ingresos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SelectedRowDirective],
   templateUrl: './log-ingresos.component.html',
   styleUrl: './log-ingresos.component.css'
 })

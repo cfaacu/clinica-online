@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { EspecialistaService } from '../../services/especialista.service';
+import { GrowOnHoverDirective } from '../../directives/grow-on-hover.directive';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, GrowOnHoverDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

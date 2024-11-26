@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody class="tbody">
-        <tr *ngFor="let usuario of logs">
+        <tr *ngFor="let usuario of logs" appSelectedRow>
           <td>{{ usuario.email }}</td>
           <td>{{ usuario.fecha }}</td>
           <td>{{ usuario.hora }}</td>

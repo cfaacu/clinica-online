@@ -5,11 +5,11 @@ import { GraficoCantTurnosEspecialistaComponent } from "./grafico-cant-turnos-es
 import { GraficoCantTurnosEspecialistaFinalizadosComponent } from "./grafico-cant-turnos-especialista-finalizados/grafico-cant-turnos-especialista-finalizados.component";
 import { LogIngresosComponent } from "./log-ingresos/log-ingresos.component";
 import { CommonModule } from '@angular/common';
-
+import { ActiveButtonDirective } from '../../directives/active-button.directive'
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
-  imports: [CommonModule,GraficoCantTurnosPorEspecialidadComponent, GraficoCantTurnosPorDiaComponent, GraficoCantTurnosEspecialistaComponent, GraficoCantTurnosEspecialistaFinalizadosComponent, LogIngresosComponent],
+  imports: [CommonModule,GraficoCantTurnosPorEspecialidadComponent, GraficoCantTurnosPorDiaComponent, GraficoCantTurnosEspecialistaComponent, GraficoCantTurnosEspecialistaFinalizadosComponent, LogIngresosComponent,ActiveButtonDirective],
   templateUrl: './estadisticas.component.html',
   styleUrl: './estadisticas.component.css'
 })
