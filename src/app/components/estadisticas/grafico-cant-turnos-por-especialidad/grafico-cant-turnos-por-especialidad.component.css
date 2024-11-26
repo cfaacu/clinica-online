@@ -1,0 +1,25 @@
+h3{
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h5{
+    text-decoration: underline;
+}
+.ct-series-a .ct-slice-pie {
+    fill: #4caf50; /* Color para la primera serie */
+}
+.ct-series-b .ct-slice-pie {
+    fill: #2196f3; /* Color para la segunda serie */
+}
+.ct-series-c .ct-slice-pie {
+    fill: #ff5722; /* Color para la tercera serie */
+}
+/* Agrega más series según lo necesites */
+
+@-webkit-keyframes shadow-drop-center{0%{-webkit-box-shadow:0 0 0 0 transparent;box-shadow:0 0 0 0 transparent}100%{-webkit-box-shadow:0 0 20px 0 rgba(0,0,0,.35);box-shadow:0 0 20px 0 rgba(0,0,0,.35)}}@keyframes shadow-drop-center{0%{-webkit-box-shadow:0 0 0 0 transparent;box-shadow:0 0 0 0 transparent}100%{-webkit-box-shadow:0 0 20px 0 rgba(0,0,0,.35);box-shadow:0 0 20px 0 rgba(0,0,0,.35)}}
+.shadow-drop-center{-webkit-animation:shadow-drop-center 1s cubic-bezier(.25,.46,.45,.94) both;animation:shadow-drop-center 1s cubic-bezier(.25,.46,.45,.94) both}
+
+
+ @-webkit-keyframes scale-up-hor-left{0%{-webkit-transform:scaleX(.4);transform:scaleX(.4);-webkit-transform-origin:0 0;transform-origin:0 0}100%{-webkit-transform:scaleX(1);transform:scaleX(1);-webkit-transform-origin:0 0;transform-origin:0 0}}@keyframes scale-up-hor-left{0%{-webkit-transform:scaleX(.4);transform:scaleX(.4);-webkit-transform-origin:0 0;transform-origin:0 0}100%{-webkit-transform:scaleX(1);transform:scaleX(1);-webkit-transform-origin:0 0;transform-origin:0 0}}
+.scale-up-hor-left{-webkit-animation:scale-up-hor-left 1s cubic-bezier(.39,.575,.565,1.000) both;animation:scale-up-hor-left 1s cubic-bezier(.39,.575,.565,1.000) both}

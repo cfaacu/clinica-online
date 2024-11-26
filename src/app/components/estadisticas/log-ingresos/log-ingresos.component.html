@@ -1,0 +1,41 @@
+<div class="rotate-vert-center">
+    <hr />
+    <h2>
+      <img
+        class="mt-2"
+        src="https://i.postimg.cc/L8DqTVRV/2771402.png"
+        style="height: 50px; width: 50px; margin-right: 10px"
+      />
+      CLÍNICA ONLINE
+    </h2>
+    <table class="table" id="excel-table">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+        </tr>
+      </thead>
+      <tbody class="tbody">
+        <tr *ngFor="let usuario of logs">
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.fecha }}</td>
+          <td>{{ usuario.hora }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr />
+  </div>
+  <button
+    type="button"
+    class="btn btn-success container"
+    style="margin-top: 10px; width: 15%; font-size: 20px"
+    appPosicion
+    (click)="exportExcelAll()"
+  >
+    DESCARGAR<img
+      src="https://i.postimg.cc/Y9g4DSCT/sobresalir.png"
+      style="height: 40px; width: 40px; margin-left: 10px"
+    />
+  </button>
+  

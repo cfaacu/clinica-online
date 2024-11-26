@@ -1,0 +1,34 @@
+<div id="pdfTable" #pdfTable class="scale-up-bl">
+    <hr />
+    <h2>
+      <img
+        class="mt-2"
+        src="https://i.postimg.cc/L8DqTVRV/2771402.png"
+        style="height: 50px; width: 50px; margin-right: 10px"
+      />
+      CLÍNICA ONLINE
+    </h2>
+    <div id="chart-line">
+      <highcharts-chart
+        [Highcharts]="highcharts"
+        [options]="chartOptions"
+        style="width: 100%; height: 400px; display: block"
+      >
+      </highcharts-chart>
+    </div>
+  </div>
+  <hr />
+
+  <button
+    type="button"
+    class="btn btn-danger container"
+    style="margin-top: 10px; width: 15%; font-size: 20px"
+    appPosicion
+    (click)="crearPdf()"
+  >
+    DESCARGAR<img
+      src="https://i.postimg.cc/pTNrjtJC/pdf.png"
+      style="height: 40px; width: 40px; margin-left: 10px"
+    />
+  </button>
+  

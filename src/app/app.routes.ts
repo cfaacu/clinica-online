@@ -9,6 +9,7 @@ import { SolicitarTurnoComponent } from './components/solicitar-turno/solicitar-
 import { MisTurnosTablaComponent } from './components/mis-turnos-tabla/mis-turnos-tabla.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { authGuard } from './guards/auth.guard';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -20,5 +21,6 @@ export const routes: Routes = [
     { path: 'solicitar-turno', component: SolicitarTurnoComponent, canActivate: [authGuard] },
     { path: 'mis-turnos-paciente', component: MisTurnosTablaComponent, canActivate: [authGuard] },
     { path: 'mi-perfil', component: MiPerfilComponent, canActivate: [authGuard] },
+    { path: 'estadisticas', component: EstadisticasComponent},
     { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

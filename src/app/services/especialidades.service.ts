@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, CollectionReference, Firestore, getDocs, query, where } from '@angular/fire/firestore';
+import { addDoc, collection, CollectionReference, collectionSnapshots, Firestore, getDocs, query, where } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
 
 @Injectable({
@@ -22,6 +22,13 @@ export class EspecialidadesService {
     }
   }
   
+
+  public getAll(): Observable<any[]> {
+    const dbCollection = collection(this.firestore, 'especialidades'); 
+    return collectionSnapshots(dbCollection); 
+  }
+
+
   public getAllEsp(): Observable<any[]> {
     const especialistasQuery = query(this.especialidadesRef);
 

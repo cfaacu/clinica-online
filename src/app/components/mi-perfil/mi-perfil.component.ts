@@ -11,7 +11,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
   standalone: true,
   imports: [CommonModule, MisHorariosComponent, HistoriaClinicaComponent],
   templateUrl: './mi-perfil.component.html',
-  styleUrl: './mi-perfil.component.css'
+  styleUrl: './mi-perfil.component.css',
 })
 export class MiPerfilComponent {
   constructor(public authService: AuthService) {}

@@ -41,6 +41,7 @@ export class LoginComponent {
       this.authService.singIn(item.email, item.password).then((res) => {
         this.spinnerHide();
         if (this.authService.msjError == '') {
+          this.adminService.addLogIngreso(item.email);
           this.router.navigate(['/home']);
         }
       });
@@ -69,7 +70,6 @@ export class LoginComponent {
   }
 
   onPaciente1() {
-    // this.formulario.controls['email'].setValue('ladrunofyu@gufum.com');
     this.formulario.controls['email'].setValue('kilmizedro@gufum.com');
 
     this.formulario.controls['password'].setValue('asd1234');

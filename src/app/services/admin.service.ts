@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, Firestore, getDocs, setDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, Firestore, getDocs, setDoc } from '@angular/fire/firestore';
 import { StorageService } from './storage.service';
 import { Administrador } from '../models/administrador';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,6 @@ export class AdminService {
 
   public async altaAdmin(uid : string, admin : Administrador)
   {
-    // Subir imagen de perfil del especialista a Firebase Storage (si existe)
     let imagenPerfil: string | undefined;
 
     if (admin.imagenPerfil) {
@@ -20,7 +20,6 @@ export class AdminService {
       console.log('imagen perfil',imagenPerfil);
     }
 
-    // Crear referencia al documento en Firestore para el especialista
     const docRef = doc(this.firestore, `administradores/${uid}`);
     
     const adminData = {
@@ -42,5 +41,22 @@ export class AdminService {
     }));
 
     return administradores;
+  }
+
+  public getCollection(collectionName: string): Observable<any[]> {
+    const dbCollection = collection(this.firestore, collectionName); 
+    return collectionData(dbCollection, { idField: 'id' }); 
+  }
+
+  public async addLogIngreso(email: string): Promise<void> {
+    const fecha = new Date();
+    const item = {
+      email: email,
+      fecha: fecha.toLocaleDateString(),
+      hora: fecha.toLocaleTimeString(),
+    };
+  
+    const dbCollection = collection(this.firestore, 'logIngresosClinica'); 
+    await addDoc(dbCollection, item);
   }
 }

@@ -53,7 +53,7 @@ export class NavbarComponent {
   }
 
   onEstadisticas() {
-    this.router.navigate(['/administracion/estadisticas']);
+    this.router.navigate(['/estadisticas']);
   }
 
   goMisTurnosPaciente() {

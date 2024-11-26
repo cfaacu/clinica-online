@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, doc, Firestore, getDocs, query, setDoc, updateDoc } from '@angular/fire/firestore';
+import { collection, collectionData, doc, Firestore, getDocs, query, setDoc, updateDoc } from '@angular/fire/firestore';
 import { StorageService } from './storage.service';
 import { Especialista } from '../models/especialista';
 import { from, Observable } from 'rxjs';
@@ -59,7 +59,11 @@ export class EspecialistaService {
       cuentaHabilitada: estado
     });
   }
-
+  
+  public getAll(): Observable<any[]> {
+    const colRef = collection(this.firestore, 'especialistas');
+    return collectionData(colRef, { idField: 'uid' });
+  }
   public getAllTwo(): Observable<Especialista[]> {
     const especialistasCollection = collection(this.firestore, 'especialistas');
     
